@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>F5 Automation for Enterprise NetOps | MutexOps</title>
+  <meta name="description" content="Eliminate F5 toil. Fully automated BIG-IP upgrades and ServiceNow self-service for app teams — no NetOps tickets, no manual touch.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="MutexOps">
+  <link rel="canonical" href="https://mutexops.com/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="F5 Automation for Enterprise NetOps | MutexOps">
+  <meta property="og:description" content="Hands-free F5 upgrades. Self-serve F5 configs from ServiceNow. No tickets. No toil.">
+  <meta property="og:url" content="https://mutexops.com/">
+  <meta property="og:image" content="https://mutexops.com/mutexops_logo.jpg">
+
+  <link rel="icon" type="image/jpeg" href="mutexops_logo.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f5f2eb;
+      --bg2: #edeae2;
+      --surface: #ffffff;
+      --border: #d8d4c8;
+      --border2: #c8c4b8;
+      --ink: #1a1814;
+      --ink2: #3d3a34;
+      --ink3: #6b6860;
+      --ink4: #9b9890;
+      --accent: #e04510;
+      --accent2: #c8390a;
+      --accent3: #ff5a1f;
+      --accent-bg: rgba(224,69,16,0.08);
+      --accent-border: rgba(224,69,16,0.25);
+      --green: #2d6a4f;
+      --green-bg: rgba(45,106,79,0.08);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+    /* Corner bracket motif — matches viewfinder corners on logo */
+    .brackets {
+      position: absolute;
+      inset: 18px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .brackets::before, .brackets::after,
+    .brackets > span::before, .brackets > span::after {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--accent);
+      opacity: 0.85;
+    }
+    .brackets::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+    .brackets::after  { top: 0; right: 0; border-left: none; border-bottom: none; }
+    .brackets > span::before { bottom: 0; left: 0; border-right: none; border-top: none; }
+    .brackets > span::after  { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26,24,20,0.96);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      display: block;
+    }
+    .nav-brand-text {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      line-height: 1;
+    }
+    .nav-brand-text span { color: var(--accent3); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: 9px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border: 2px solid var(--accent);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent3); border-color: var(--accent3); text-decoration: none; }
+
+    /* HERO — dark, anchored on the logo */
+    .hero {
+      background: var(--ink);
+      color: #fff;
+      padding: 96px 0 88px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--accent);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 80% 20%, rgba(224,69,16,0.18), transparent 50%),
+                        radial-gradient(circle at 10% 90%, rgba(224,69,16,0.08), transparent 40%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 31px,
+        rgba(255,255,255,0.03) 31px, rgba(255,255,255,0.03) 32px
+      );
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow-line { width: 32px; height: 2px; background: var(--accent3); }
+    .hero-eyebrow-text {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent3);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 0.96;
+      letter-spacing: 0.02em;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+    h1 .accent { color: var(--accent3); }
+    h1 .outline {
+      -webkit-text-stroke: 2px #fff;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 28px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-trust span {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-trust span::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent3);
+      display: inline-block;
+    }
+
+    /* Email capture card */
+    .capture-card {
+      position: relative;
+      background: #fff;
+      color: var(--ink);
+      padding: 36px 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+    .capture-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .capture-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .capture-card p {
+      font-size: 0.85rem;
+      color: var(--ink3);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+    .form-row { margin-bottom: 12px; }
+    .form-row label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--ink3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .form-row input {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      border: 1.5px solid var(--border2);
+      background: var(--bg);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .form-row input:focus {
+      border-color: var(--accent);
+      background: #fff;
+    }
+    .form-error {
+      display: none;
+      font-size: 0.78rem;
+      color: var(--accent2);
+      margin-top: 6px;
+      font-family: var(--font-mono);
+    }
+    .form-error.visible { display: block; }
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 20px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: var(--accent3); border-color: var(--accent3); transform: translateY(-1px); }
+    .form-fineprint {
+      font-size: 0.72rem;
+      color: var(--ink4);
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+    .form-success {
+      display: none;
+      padding: 20px;
+      background: var(--green-bg);
+      border: 1px solid rgba(45,106,79,0.25);
+      color: var(--green);
+      font-size: 0.88rem;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .form-success.visible { display: block; }
+    .form-success.visible + form { display: none; }
+
+    /* OUTCOMES STRIP */
+    .outcomes {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-left: 1px solid var(--border);
+    }
+    .outcome {
+      padding: 8px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .outcome-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .outcome-num span { color: var(--accent); }
+    .outcome-label {
+      font-size: 0.78rem;
+      color: var(--ink3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 8px;
+      font-family: var(--font-mono);
+    }
+
+    /* SECTIONS */
+    .section { padding: 88px 0; border-bottom: 1px solid var(--border); position: relative; }
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 56px;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: var(--accent);
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: 0.03em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      color: var(--ink3);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    /* PROBLEM STRIP */
+    .problem-strip {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 72px 0;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .problem-strip .section-label { color: var(--accent3); }
+    .problem-strip .section-label::before { background: var(--accent3); }
+    .problem-strip h2 { color: #fff; }
+    .pain-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .pain-list li {
+      padding: 22px 24px 22px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.92rem;
+      color: rgba(245,242,235,0.78);
+      line-height: 1.55;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .pain-list li:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.1); padding-right: 24px; }
+    .pain-list li:nth-child(even) { padding-left: 24px; }
+    .pain-icon {
+      color: var(--accent3);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* SOLUTION CARDS */
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .solution-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px 36px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .solution-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(26,24,20,0.08);
+    }
+    .solution-card-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      margin-bottom: 14px;
+    }
+    .solution-card h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.03em;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      color: var(--ink);
+    }
+    .solution-card p.lead {
+      color: var(--ink2);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .solution-card ul {
+      list-style: none;
+      border-top: 1px solid var(--border);
+    }
+    .solution-card ul li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--ink2);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      line-height: 1.55;
+    }
+    .solution-card ul li:last-child { border-bottom: none; }
+    .solution-card ul li::before {
+      content: '→';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* FLOW */
+    .flow-diagram {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-top: 16px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .flow-step {
+      flex: 1;
+      min-width: 140px;
+      padding: 22px 18px;
+      text-align: center;
+      position: relative;
+      border-right: 1px solid var(--border);
+    }
+    .flow-step:last-child { border-right: none; }
+    .flow-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--ink4);
+      letter-spacing: 0.14em;
+      margin-bottom: 8px;
+    }
+    .flow-step-title {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+    .flow-step-sub {
+      font-size: 0.78rem;
+      color: var(--ink3);
+      line-height: 1.5;
+    }
+    .flow-step.active { background: var(--accent-bg); }
+    .flow-step.active .flow-step-num { color: var(--accent); }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: var(--ink);
+      color: #fff;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 70% 50%, rgba(224,69,16,0.22), transparent 60%);
+    }
+    .cta-banner-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 64px;
+      align-items: center;
+    }
+    .cta-banner h2 {
+      color: #fff;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 16px;
+    }
+    .cta-banner h2 .accent { color: var(--accent3); }
+    .cta-banner p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      padding: 22px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ink);
+      user-select: none;
+      gap: 16px;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-arrow {
+      color: var(--accent);
+      font-size: 1.2rem;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+    }
+    .faq-item.open .faq-arrow { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-a p {
+      padding-bottom: 24px;
+      color: var(--ink3);
+      font-size: 0.92rem;
+      line-height: 1.8;
+    }
+    .faq-item.open .faq-a { max-height: 600px; }
+
+    /* FOOTER */
+    footer {
+      padding: 56px 0 40px;
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-brand img { width: 44px; height: 44px; border-radius: 6px; }
+    .footer-brand-text {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: #fff;
+      line-height: 1;
+    }
+    .footer-brand-text span { color: var(--accent3); }
+    .footer-tagline {
+      font-size: 0.72rem;
+      color: rgba(245,242,235,0.4);
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+    .footer-copy { color: rgba(245,242,235,0.3); font-size: 0.72rem; font-family: var(--font-mono); }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.84em;
+      background: rgba(224,69,16,0.08);
+      border: 1px solid rgba(224,69,16,0.18);
+      color: var(--accent2);
+      padding: 1px 6px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .capture-card { max-width: 480px; }
+      .problem-grid { grid-template-columns: 1fr; gap: 32px; }
+      .pain-list { grid-template-columns: 1fr; }
+      .pain-list li:nth-child(odd) { border-right: none; padding-right: 0; }
+      .pain-list li:nth-child(even) { padding-left: 0; }
+      .solution-grid { grid-template-columns: 1fr; }
+      .outcomes-grid { grid-template-columns: 1fr 1fr; }
+      .cta-banner-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 560px) {
+      h1 { font-size: 2.6rem; }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .nav-cta { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <img src="mutexops_logo.jpg" alt="MutexOps logo">
+      <div class="nav-brand-text">MUTEX<span>OPS</span></div>
+    </div>
+    <a href="#demo" class="nav-cta">Book a Demo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">F5 Automation · Built for Enterprise NetOps</div>
+      </div>
+
+      <h1 id="hero-h1">
+        End the F5 <span class="accent">Bottleneck</span>.<br>
+        <span class="outline">Ship Apps</span> Faster.
+      </h1>
+
+      <p class="hero-sub">
+        Fully automated F5 BIG-IP upgrades with zero-window risk. App teams self-serve virtual servers, pools, and SSL configs directly from ServiceNow — no NetOps ticket, no waiting, no manual touch.
+      </p>
+
+      <div class="hero-trust">
+        <span>Hands-Free Upgrades</span>
+        <span>ServiceNow Native</span>
+        <span>Self-Hosted Ready</span>
+        <span>Full Audit Trail</span>
+      </div>
+    </div>
+
+    <!-- EMAIL CAPTURE -->
+    <div class="capture-card" id="demo">
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book a Live Walkthrough</div>
+      <h2>See it run on a real BIG-IP in 15 minutes.</h2>
+      <p>Drop your work email — we'll send a calendar link. No marketing sequence, no SDR call.</p>
+
+      <div class="form-success" id="form-success">
+        ✓ Thanks. We'll be in touch within one business day.
+      </div>
+
+      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')">
+        <div class="form-row">
+          <label for="email-1">Work Email</label>
+          <input type="email" id="email-1" name="email" placeholder="you@company.com" required autocomplete="email">
+          <div class="form-error" id="error-1">Please use your business email — free providers aren't supported.</div>
+        </div>
+        <div class="form-row">
+          <label for="company-1">Company</label>
+          <input type="text" id="company-1" name="company" placeholder="Acme Corp" required>
+        </div>
+        <button type="submit" class="submit-btn">Book My Demo →</button>
+        <div class="form-fineprint">We'll only use your email to schedule the demo.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<div class="outcomes">
+  <div class="container">
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">Manual upgrade steps</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">NetOps tickets per VIP</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>~30s</span></div>
+        <div class="outcome-label">AS3 deploy time</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>100%</span></div>
+        <div class="outcome-label">Audit trail coverage</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem-strip" id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label">The Cost of Manual</div>
+        <h2>F5 Operations Are Stuck in the Past.</h2>
+      </div>
+      <ul class="pain-list">
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Upgrades take <strong>hours per device</strong> — copy-paste CLI, no automated rollback</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>App teams wait <strong>weeks</strong> for every VIP, pool, or SSL change</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Runbook lives in engineer heads — <strong>no version control, no audit trail</strong></span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Config drift accumulates as changes <strong>bypass automation</strong> straight to CLI</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="section" id="solution">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What MutexOps Does</div>
+      <h2>Two Pipelines. One Platform.</h2>
+      <p class="section-desc">
+        Replace the manual F5 runbook and the NetOps ticket queue with two production-grade automation pipelines built on a shared Python core.
+      </p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 01 — UPGRADE PIPELINE</div>
+        <h3>Hands-Free BIG-IP Upgrades</h3>
+        <p class="lead">A Python-driven upgrade engine over iControl REST. Pre-flight to post-check, hands-free, every time.</p>
+        <ul>
+          <li>Pre-flight gate: HA sync, disk, RAM, pool health, cert expiry</li>
+          <li>Encrypted UCS backup before any image transfer</li>
+          <li>Install to alternate volume — running volume untouched</li>
+          <li>Automatic rollback on failed health check or timeout</li>
+          <li>Post-upgrade verification: version, daemons, HA, VIPs</li>
+          <li>Structured JSON logs to Splunk / Elastic</li>
+        </ul>
+      </div>
+
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 02 — ZERO TOUCH CONFIG</div>
+        <h3>Self-Service from ServiceNow</h3>
+        <p class="lead">App teams fill a ServiceNow catalog form. Python translates it to AS3 and deploys directly to BIG-IP.</p>
+        <ul>
+          <li>ServiceNow catalog item — no networking knowledge required</li>
+          <li>Flow Designer approval routing with HMAC-signed webhook</li>
+          <li>Pydantic validation rejects invalid requests pre-deploy</li>
+          <li>Idempotent AS3 declarations — safe to re-run</li>
+          <li>RITM auto-closes with VIP, pool, SSL summary</li>
+          <li>Every declaration committed to Git for full audit history</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" style="background: var(--bg2);" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>From Catalog Form to Deployed VIP — In Minutes.</h2>
+      <p class="section-desc">No ticket queues, no manual handoffs, no NetOps in the critical path for routine work.</p>
+    </div>
+
+    <div class="flow-diagram" role="list" aria-label="Zero touch deployment pipeline">
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">App Team Submits</div>
+        <div class="flow-step-sub">ServiceNow catalog — name, port, backends, SSL</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">Approval Routes</div>
+        <div class="flow-step-sub">Flow Designer fires HMAC-signed webhook</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">Python Validates</div>
+        <div class="flow-step-sub">CMDB authz, payload schema, target device</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">AS3 Deploys</div>
+        <div class="flow-step-sub">Idempotent declaration — under 30 seconds</div>
+      </div>
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">05</div>
+        <div class="flow-step-title">RITM Auto-Closes</div>
+        <div class="flow-step-sub">VIP details posted back, Git commit recorded</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="demo2">
+  <div class="cta-banner-inner">
+    <div>
+      <div class="section-label" style="color: var(--accent3); margin-bottom: 16px;">
+        <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
+        Stop Burning NetOps Hours
+      </div>
+      <h2>See your <span class="accent">F5 fleet</span> running on autopilot.</h2>
+      <p>15-minute walkthrough on a live BIG-IP. We'll show the upgrade pipeline and the ServiceNow integration end-to-end. No slideware.</p>
+    </div>
+
+    <div class="capture-card">
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book Your Walkthrough</div>
+      <h2>Get the live demo.</h2>
+      <p>Work email only. We'll reply with a calendar link.</p>
+
+      <div class="form-success" id="form-success-2">
+        ✓ Thanks. We'll be in touch within one business day.
+      </div>
+
+      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')">
+        <div class="form-row">
+          <label for="email-2">Work Email</label>
+          <input type="email" id="email-2" name="email" placeholder="you@company.com" required autocomplete="email">
+          <div class="form-error" id="error-2">Please use your business email — free providers aren't supported.</div>
+        </div>
+        <div class="form-row">
+          <label for="company-2">Company</label>
+          <input type="text" id="company-2" name="company" placeholder="Acme Corp" required>
+        </div>
+        <button type="submit" class="submit-btn">Book My Demo →</button>
+        <div class="form-fineprint">No SDR sequence. One email, one calendar link.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Common Questions.</h2>
+    </div>
+
+    <div itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Does the upgrade automation support HA active/standby pairs?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes. The engine upgrades the standby unit first, verifies health, then fails over and upgrades the original active. Pre-flight blocks the upgrade if HA sync state isn't "In Sync" — no partial-state upgrades.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">What happens if an upgrade fails mid-process?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The RollbackManager reboots back to the previously active boot volume — no re-installation needed because we always install to the alternate volume. If volume rollback fails, UCS restore fires as a last resort.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">How do you prevent app teams from deploying to the wrong BIG-IP?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The target BIG-IP field is a CMDB reference — app teams pick from devices their team is pre-authorized for. The webhook re-validates team-to-device authorization before building any AS3 declaration.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Is MutexOps SaaS or self-hosted?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Self-hosted. The Python engine runs in your VPC, talks to your BIG-IPs over your existing management network, and reads BIG-IP credentials from your Vault. No outbound dependency on MutexOps infrastructure.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Which BIG-IP and ServiceNow versions are supported?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The upgrade engine supports BIG-IP across currently supported major versions. The zero touch pipeline requires AS3 on a recent release. ServiceNow Flow Designer is required for the webhook integration; the REST API integration works on any modern ServiceNow release.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="mutexops_logo.jpg" alt="MutexOps logo">
+      <div>
+        <div class="footer-brand-text">MUTEX<span>OPS</span></div>
+        <div class="footer-tagline">// operations without conflict</div>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 MutexOps. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const FREE_DOMAINS = new Set([
+    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.co.in',
+    'hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com',
+    'icloud.com','me.com','mac.com','aol.com','protonmail.com','proton.me',
+    'gmx.com','gmx.de','mail.com','yandex.com','yandex.ru','zoho.com',
+    'tutanota.com','fastmail.com','hey.com','duck.com','pm.me'
+  ]);
+
+  function isBusinessEmail(email) {
+    const m = /^[^\s@]+@([^\s@]+\.[^\s@]+)$/.exec(email.trim().toLowerCase());
+    if (!m) return false;
+    return !FREE_DOMAINS.has(m[1]);
+  }
+
+  function submitDemo(event, formId) {
+    event.preventDefault();
+    const form = document.getElementById(formId);
+    const emailInput = form.querySelector('input[type="email"]');
+    const errorEl = form.querySelector('.form-error');
+    const email = emailInput.value;
+
+    if (!isBusinessEmail(email)) {
+      errorEl.classList.add('visible');
+      emailInput.focus();
+      return false;
+    }
+    errorEl.classList.remove('visible');
+
+    // Replace this with your endpoint (e.g. /api/leads, Formspree, HubSpot, etc.)
+    // For now: show success state and console.log payload.
+    const payload = {
+      email: email,
+      company: form.querySelector('input[name="company"]').value,
+      source: 'linkedin-ad',
+      page: 'f5-automation',
+      submitted_at: new Date().toISOString()
+    };
+    console.log('[MutexOps] demo request', payload);
+
+    // TODO: fetch('/api/leads', { method: 'POST', body: JSON.stringify(payload), headers: {'Content-Type':'application/json'} })
+
+    const successId = formId === 'demo-form' ? 'form-success' : 'form-success-2';
+    document.getElementById(successId).classList.add('visible');
+    form.style.display = 'none';
+    return false;
+  }
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      el.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFaq(q); }
+    });
+  });
+</script>
+
+<!-- 24/7 voice AI call widget -->
+<!-- TODO: replace data-widget-key with your live key (wk_live_...) -->
+<script
+  src="http://localhost:8000/widget.js"
+  data-widget-key="wk_live_RuiGvWlJrNizeYqZczYRa-RKBSkWtY0_"
+  data-label="Call us 24/7"
+  data-color="#e04510"
+  data-position="br"
+  defer></script>
+
+</body>
+</html>

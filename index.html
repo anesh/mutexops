@@ -328,7 +328,102 @@
       line-height: 1.6;
     }
     .form-success.visible { display: block; }
-    .form-success.visible + form { display: none; }
+    .capture-card.booked .picker,
+    .capture-card.booked form { display: none; }
+
+    /* PICKER — date strip + time chips */
+    .picker { margin: 4px 0 18px; }
+    .picker-tz {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--ink4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .picker-loading, .picker-empty {
+      padding: 32px 0;
+      text-align: center;
+      color: var(--ink4);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+    }
+    .date-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      scrollbar-width: thin;
+    }
+    .date-pill {
+      flex-shrink: 0;
+      min-width: 64px;
+      padding: 8px 10px;
+      border: 1.5px solid var(--border2);
+      background: #fff;
+      cursor: pointer;
+      text-align: center;
+      font-family: var(--font-body);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .date-pill:hover { border-color: var(--ink3); }
+    .date-pill .day {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--ink4);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .date-pill .num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--ink);
+      line-height: 1;
+      margin: 3px 0;
+      letter-spacing: 0.02em;
+    }
+    .date-pill .mon {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--ink3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .date-pill.active {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+    .date-pill.active .num,
+    .date-pill.active .mon { color: var(--accent); }
+
+    .time-chips {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      max-height: 168px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .time-chip {
+      padding: 9px 6px;
+      border: 1.5px solid var(--border2);
+      background: #fff;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink2);
+      text-align: center;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .time-chip:hover { border-color: var(--ink3); }
+    .time-chip.active {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-weight: 600;
+    }
 
     /* OUTCOMES STRIP */
     .outcomes {
@@ -678,7 +773,7 @@
       <img src="mutexops_logo.jpg" alt="MutexOps logo">
       <div class="nav-brand-text">MUTEX<span>OPS</span></div>
     </div>
-    <a href="#demo" class="nav-cta">Book a Demo</a>
+    <a href="#demo" class="nav-cta">Book a Discovery Call</a>
   </div>
 </nav>
 
@@ -708,29 +803,32 @@
       </div>
     </div>
 
-    <!-- EMAIL CAPTURE -->
-    <div class="capture-card" id="demo">
+    <!-- BOOKING CARD -->
+    <div class="capture-card" id="demo" data-card>
       <div class="brackets"><span></span></div>
-      <div class="capture-eyebrow">// Book a Live Walkthrough</div>
-      <h2>See it run on a real BIG-IP in 15 minutes.</h2>
-      <p>Drop your work email — we'll send a calendar link. No marketing sequence, no SDR call.</p>
+      <div class="capture-eyebrow">// Book a Discovery Call</div>
+      <h2>30 minutes. Let's talk F5.</h2>
+      <p>Pick a free slot below — we'll learn your F5 footprint, current pain points, and where automation could move the needle.</p>
 
-      <div class="form-success" id="form-success">
-        ✓ Thanks. We'll be in touch within one business day.
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
       </div>
 
       <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')">
+        <input type="hidden" name="slot" data-slot>
         <div class="form-row">
           <label for="email-1">Work Email</label>
           <input type="email" id="email-1" name="email" placeholder="you@company.com" required autocomplete="email">
-          <div class="form-error" id="error-1">Please use your business email — free providers aren't supported.</div>
         </div>
         <div class="form-row">
           <label for="company-1">Company</label>
           <input type="text" id="company-1" name="company" placeholder="Acme Corp" required>
         </div>
-        <button type="submit" class="submit-btn">Book My Demo →</button>
-        <div class="form-fineprint">We'll only use your email to schedule the demo.</div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">We'll only use your email to schedule the call.</div>
       </form>
     </div>
   </div>
@@ -882,32 +980,35 @@
         <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
         Stop Burning NetOps Hours
       </div>
-      <h2>See your <span class="accent">F5 fleet</span> running on autopilot.</h2>
-      <p>15-minute walkthrough on a live BIG-IP. We'll show the upgrade pipeline and the ServiceNow integration end-to-end. No slideware.</p>
+      <h2>Tell us about your <span class="accent">F5 fleet</span>.</h2>
+      <p>30-minute discovery call. We'll listen first — your environment, your pain points, where automation could save the most NetOps hours. No pitch deck.</p>
     </div>
 
-    <div class="capture-card">
+    <div class="capture-card" data-card>
       <div class="brackets"><span></span></div>
-      <div class="capture-eyebrow">// Book Your Walkthrough</div>
-      <h2>Get the live demo.</h2>
-      <p>Work email only. We'll reply with a calendar link.</p>
+      <div class="capture-eyebrow">// Book Your Discovery Call</div>
+      <h2>Pick a time below.</h2>
+      <p>One click. We'll follow up with a Teams invite.</p>
 
-      <div class="form-success" id="form-success-2">
-        ✓ Thanks. We'll be in touch within one business day.
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
       </div>
 
       <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')">
+        <input type="hidden" name="slot" data-slot>
         <div class="form-row">
           <label for="email-2">Work Email</label>
           <input type="email" id="email-2" name="email" placeholder="you@company.com" required autocomplete="email">
-          <div class="form-error" id="error-2">Please use your business email — free providers aren't supported.</div>
         </div>
         <div class="form-row">
           <label for="company-2">Company</label>
           <input type="text" id="company-2" name="company" placeholder="Acme Corp" required>
         </div>
-        <button type="submit" class="submit-btn">Book My Demo →</button>
-        <div class="form-fineprint">No SDR sequence. One email, one calendar link.</div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">No SDR sequence. One email, one calendar invite.</div>
       </form>
     </div>
   </div>
@@ -998,44 +1099,187 @@
     'tutanota.com','fastmail.com','hey.com','duck.com','pm.me'
   ]);
 
+  // TODO: point this at your deployed backend
+  const API_BASE = 'http://localhost:8000';
+
+  let groupedSlots = {};   // { 'YYYY-MM-DD': ['ISO', 'ISO', ...] }
+  let timezone = '';
+
   function isBusinessEmail(email) {
     const m = /^[^\s@]+@([^\s@]+\.[^\s@]+)$/.exec(email.trim().toLowerCase());
     if (!m) return false;
     return !FREE_DOMAINS.has(m[1]);
   }
 
-  function submitDemo(event, formId) {
+  function fmtDate(isoDate) {
+    const d = new Date(isoDate + 'T00:00:00');
+    return {
+      day: d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase(),
+      num: d.getDate(),
+      mon: d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
+    };
+  }
+
+  function fmtTime(isoDateTime) {
+    const t = new Date(isoDateTime);
+    return t.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  }
+
+  function fmtFull(isoDateTime) {
+    const t = new Date(isoDateTime);
+    return t.toLocaleString('en-US', {
+      weekday: 'short', month: 'short', day: 'numeric',
+      hour: 'numeric', minute: '2-digit', hour12: true
+    });
+  }
+
+  async function loadAvailability() {
+    const pickers = document.querySelectorAll('[data-picker]');
+
+    try {
+      const r = await fetch(`${API_BASE}/api/availability`);
+      if (!r.ok) throw new Error(`status ${r.status}`);
+      const data = await r.json();
+      timezone = data.timezone;
+
+      groupedSlots = {};
+      for (const iso of data.slots) {
+        const date = iso.slice(0, 10);
+        (groupedSlots[date] = groupedSlots[date] || []).push(iso);
+      }
+
+      pickers.forEach(renderPicker);
+    } catch (e) {
+      console.error('[MutexOps] availability fetch failed', e);
+      pickers.forEach(p => {
+        p.innerHTML = '<div class="picker-empty">Couldn\'t load times. Email <a href="mailto:hello@mutexops.com">hello@mutexops.com</a> and we\'ll book you in.</div>';
+      });
+    }
+  }
+
+  function renderPicker(pickerEl) {
+    const dates = Object.keys(groupedSlots).sort();
+    if (dates.length === 0) {
+      pickerEl.innerHTML = '<div class="picker-empty">No availability in the next 14 days. Please email hello@mutexops.com.</div>';
+      return;
+    }
+
+    const tzPretty = timezone.replace(/_/g, ' ');
+    pickerEl.innerHTML = `
+      <div class="picker-tz">All times in ${tzPretty}</div>
+      <div class="date-strip" data-role="dates">
+        ${dates.map((d, i) => {
+          const f = fmtDate(d);
+          return `<button type="button" class="date-pill${i === 0 ? ' active' : ''}" data-date="${d}">
+            <div class="day">${f.day}</div>
+            <div class="num">${f.num}</div>
+            <div class="mon">${f.mon}</div>
+          </button>`;
+        }).join('')}
+      </div>
+      <div class="time-chips" data-role="times"></div>
+    `;
+
+    const timesEl = pickerEl.querySelector('[data-role="times"]');
+    const renderTimes = (date) => {
+      timesEl.innerHTML = groupedSlots[date].map(iso =>
+        `<button type="button" class="time-chip" data-slot="${iso}">${fmtTime(iso)}</button>`
+      ).join('');
+    };
+
+    pickerEl.querySelectorAll('.date-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        pickerEl.querySelectorAll('.date-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTimes(btn.dataset.date);
+        // clear time selection on date change
+        const slotInput = pickerEl.closest('[data-card]').querySelector('[data-slot]');
+        if (slotInput) slotInput.value = '';
+      });
+    });
+
+    timesEl.addEventListener('click', (e) => {
+      const chip = e.target.closest('.time-chip');
+      if (!chip) return;
+      timesEl.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const card = pickerEl.closest('[data-card]');
+      card.querySelector('[data-slot]').value = chip.dataset.slot;
+      const errorEl = card.querySelector('[data-error]');
+      if (errorEl) errorEl.classList.remove('visible');
+    });
+
+    renderTimes(dates[0]);
+  }
+
+  async function submitDemo(event, formId) {
     event.preventDefault();
     const form = document.getElementById(formId);
+    const card = form.closest('[data-card]');
     const emailInput = form.querySelector('input[type="email"]');
-    const errorEl = form.querySelector('.form-error');
-    const email = emailInput.value;
+    const companyInput = form.querySelector('input[name="company"]');
+    const slotInput = form.querySelector('[data-slot]');
+    const errorEl = card.querySelector('[data-error]');
+    const successEl = card.querySelector('[data-success]');
+    const submitBtn = form.querySelector('.submit-btn');
+
+    const email = emailInput.value.trim();
+    const company = companyInput.value.trim();
+    const slot = slotInput ? slotInput.value : '';
+
+    const showError = (msg) => {
+      errorEl.textContent = msg;
+      errorEl.classList.add('visible');
+    };
+    errorEl.classList.remove('visible');
+    errorEl.textContent = '';
 
     if (!isBusinessEmail(email)) {
-      errorEl.classList.add('visible');
+      showError("Please use your business email — free providers aren't supported.");
       emailInput.focus();
       return false;
     }
-    errorEl.classList.remove('visible');
+    if (!company) {
+      showError('Company is required.');
+      companyInput.focus();
+      return false;
+    }
+    if (!slot) {
+      showError('Please pick a date and time above.');
+      return false;
+    }
 
-    // Replace this with your endpoint (e.g. /api/leads, Formspree, HubSpot, etc.)
-    // For now: show success state and console.log payload.
-    const payload = {
-      email: email,
-      company: form.querySelector('input[name="company"]').value,
-      source: 'linkedin-ad',
-      page: 'f5-automation',
-      submitted_at: new Date().toISOString()
-    };
-    console.log('[MutexOps] demo request', payload);
+    const origLabel = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Booking…';
 
-    // TODO: fetch('/api/leads', { method: 'POST', body: JSON.stringify(payload), headers: {'Content-Type':'application/json'} })
+    try {
+      const r = await fetch(`${API_BASE}/api/leads`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, company, slot })
+      });
+      const result = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        throw new Error(result.detail || `Booking failed (${r.status})`);
+      }
 
-    const successId = formId === 'demo-form' ? 'form-success' : 'form-success-2';
-    document.getElementById(successId).classList.add('visible');
-    form.style.display = 'none';
+      successEl.innerHTML = `
+        <div style="font-weight:600; margin-bottom:8px;">✓ Request received.</div>
+        <div>We'll send a Teams invite to <strong>${email}</strong> shortly.</div>
+        <div style="margin-top:8px; font-family: var(--font-mono); font-size: 0.78rem;">${fmtFull(result.booked_for)} · ${result.timezone.replace(/_/g, ' ')}</div>
+      `;
+      successEl.classList.add('visible');
+      card.classList.add('booked');
+    } catch (e) {
+      showError(e.message || 'Booking failed. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = origLabel;
+    }
     return false;
   }
+
+  document.addEventListener('DOMContentLoaded', loadAvailability);
 
   function toggleFaq(el) {
     const item = el.parentElement;

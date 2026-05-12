@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Certificate Lifecycle Management | MutexOps</title>
+  <meta name="description" content="Automated certificate inventory, issuance, renewal, and deployment to F5, NGINX, IIS, and Kubernetes. Stop chasing expiries on a spreadsheet.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="MutexOps">
+  <link rel="canonical" href="https://mutexops.com/certificate-lifecycle.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Certificate Lifecycle Management | MutexOps">
+  <meta property="og:description" content="Automated certificate inventory, issuance, renewal, and deployment. No more expiry outages.">
+  <meta property="og:url" content="https://mutexops.com/certificate-lifecycle.html">
+  <meta property="og:image" content="https://mutexops.com/mutexops_logo.jpg">
+
+  <link rel="icon" type="image/jpeg" href="mutexops_logo.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="mutexops_logo.jpg" alt="MutexOps logo">
+      <div class="nav-brand-text">MUTEX<span>OPS</span></div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="f5.html">F5 Automation</a>
+      <a href="certificate-lifecycle.html" class="active">Certificates</a>
+      <a href="cloud-security.html">Cloud Security</a>
+      <a href="ai-voice-agents.html">AI Voice</a>
+      <a href="workflow-automation.html">Workflows</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">MENU</button>
+    <a href="#demo" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">Certificate Lifecycle · For Real Fleets</div>
+      </div>
+
+      <h1>
+        Certificates That <span class="accent">Renew</span><br>
+        <span class="outline">Themselves.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Centralized inventory, automated issuance and renewal, and zero-touch deployment to F5, NGINX, IIS, and Kubernetes. Every cert in one place, every expiry handled before someone gets paged.
+      </p>
+
+      <div class="hero-trust">
+        <span>ACME + Internal CA</span>
+        <span>Vault Native</span>
+        <span>F5 / NGINX / K8s</span>
+        <span>Expiry Alerting</span>
+      </div>
+    </div>
+
+    <div class="capture-card" id="demo" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book a Discovery Call</div>
+      <h2>30 minutes. Let's talk certs.</h2>
+      <p>Pick a free slot — we'll learn your cert sprawl, current renewal pain, and where automation could prevent the next expiry outage.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')" data-interest="certificates">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-1">Work Email</label>
+          <input type="email" id="email-1" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-1">Company</label>
+          <input type="text" id="company-1" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">We'll only use your email to schedule the call.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="outcomes">
+  <div class="container">
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">Manual renewals</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>1</span></div>
+        <div class="outcome-label">Inventory of record</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>30d+</span></div>
+        <div class="outcome-label">Pre-expiry alerting</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">Cert-driven outages</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="problem-strip">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label">Why Certs Still Break Things</div>
+        <h2>Spreadsheets Don't Scale.</h2>
+      </div>
+      <ul class="pain-list">
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Cert inventory lives in <strong>three different spreadsheets</strong> and one engineer's head</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Renewal is a manual ticket dance — <strong>CSR, approval, download, deploy, reload</strong></span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Each platform — F5, NGINX, IIS, K8s — has its <strong>own bespoke deploy step</strong></span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Expiry alerts are <strong>email-based</strong>. Until they hit a busy inbox and get missed</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="solution">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What MutexOps Does</div>
+      <h2>One Inventory. Every Endpoint.</h2>
+      <p class="section-desc">
+        A Python control plane that owns your certificate lifecycle end-to-end — from discovery and inventory to renewal, deployment, and rotation across every platform that serves TLS.
+      </p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 01 — DISCOVERY & INVENTORY</div>
+        <h3>Find Every Cert. Know Every Expiry.</h3>
+        <p class="lead">Active scanning, agent-based collection, and pull from each issuer. One inventory, source of truth, queryable.</p>
+        <ul>
+          <li>Scan endpoints on standard and custom ports</li>
+          <li>Pull from F5, NGINX, IIS, Kubernetes Secrets, Vault PKI</li>
+          <li>Reconcile against ACME and internal CA issuance logs</li>
+          <li>Tag by owner, environment, criticality from CMDB</li>
+          <li>Tiered expiry alerts to Slack, ServiceNow, PagerDuty</li>
+          <li>Drift detection between deployed cert and CA record</li>
+        </ul>
+      </div>
+
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 02 — RENEW & DEPLOY</div>
+        <h3>Issue, Renew, Rotate — Hands-Free.</h3>
+        <p class="lead">ACME for public, your internal CA for private. Same workflow. Deploys to whichever platform actually serves the cert.</p>
+        <ul>
+          <li>ACME (Let's Encrypt, ZeroSSL, internal) + Microsoft AD CS</li>
+          <li>Private key generated in-platform — never leaves Vault</li>
+          <li>Idempotent deploy to F5, NGINX, IIS, K8s Secrets</li>
+          <li>Graceful reload — no service interruption</li>
+          <li>Health check after deploy, rollback on failure</li>
+          <li>Every issuance logged with full chain of custody</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--bg2);" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>From Discovery to Auto-Renewed — In One Pipeline.</h2>
+      <p class="section-desc">Once a cert is under management, every subsequent renewal happens without human intervention.</p>
+    </div>
+
+    <div class="flow-diagram" role="list" aria-label="Certificate lifecycle pipeline">
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">Discover</div>
+        <div class="flow-step-sub">Scan + agent + CA reconciliation</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">Inventory</div>
+        <div class="flow-step-sub">Tag, classify, assign owner from CMDB</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">Renew</div>
+        <div class="flow-step-sub">ACME or internal CA — key in Vault</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">Deploy</div>
+        <div class="flow-step-sub">F5 / NGINX / IIS / K8s — idempotent</div>
+      </div>
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">05</div>
+        <div class="flow-step-title">Verify</div>
+        <div class="flow-step-sub">TLS handshake check + Git audit log</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="demo2">
+  <div class="cta-banner-inner">
+    <div>
+      <div class="section-label" style="color: var(--accent3); margin-bottom: 16px;">
+        <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
+        Stop Expiry Outages
+      </div>
+      <h2>How many certs do you <span class="accent">actually know about</span>?</h2>
+      <p>30-minute discovery call. We'll talk through your cert estate — public vs private, issuer mix, deploy targets — and where automation could prevent the next expiry incident.</p>
+    </div>
+
+    <div class="capture-card" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book Your Discovery Call</div>
+      <h2>Pick a time below.</h2>
+      <p>One click. We'll follow up with a Teams invite.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')" data-interest="certificates">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-2">Work Email</label>
+          <input type="email" id="email-2" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-2">Company</label>
+          <input type="text" id="company-2" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">No SDR sequence. One email, one calendar invite.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Common Questions.</h2>
+    </div>
+
+    <div itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Which CAs and ACME providers are supported?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Any RFC 8555 (ACME) provider — Let's Encrypt, ZeroSSL, Google Trust Services, plus internal ACME-compatible CAs. For non-ACME issuers we support Microsoft AD CS via DCOM/REST, DigiCert/Sectigo/Entrust via their REST APIs, and HashiCorp Vault PKI as both an issuer and a key store.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Where do private keys live?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">In your HashiCorp Vault (or supported alternative). Keys are generated inside Vault, never written to disk on the MutexOps controller. Deploy steps fetch keys via short-lived tokens, push to the target platform's native key store (F5 sys file ssl-key, K8s Secret, Windows cert store), then forget them.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">How do you handle certs you didn't issue?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Discovery picks them up via scanning and platform pulls. You can either bring them under automated renewal (after re-issuing with a known key), or just track them in inventory for expiry alerting. The system never silently rotates a cert it doesn't have the key for.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">What's the deploy flow for F5 specifically?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">iControl REST upload of the new cert and key, create-if-missing the SSL profile reference, swap the client-ssl profile on the relevant virtual servers, then verify the TLS handshake from outside. Rollback restores the prior profile binding if the post-deploy handshake fails.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Does this integrate with our existing PKI team?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes — MutexOps is a consumer of your PKI, not a replacement. Issuance still goes through your CA. The PKI team keeps policy control; MutexOps handles the request, retrieval, deployment, and renewal mechanics for the platforms that consume the certs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="mutexops_logo.jpg" alt="MutexOps logo">
+        <div>
+          <div class="footer-brand-text">MUTEX<span>OPS</span></div>
+          <div class="footer-tagline">// operations without conflict</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="f5.html">F5 Automation</a></li>
+        <li><a href="certificate-lifecycle.html">Certificate Lifecycle</a></li>
+        <li><a href="cloud-security.html">Cloud Security</a></li>
+        <li><a href="ai-voice-agents.html">AI Voice Agents</a></li>
+        <li><a href="workflow-automation.html">Workflow Automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#demo">Book a Discovery Call</a></li>
+        <li><a href="mailto:anesh@mutexops.com">anesh@mutexops.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 MutexOps. All rights reserved.</div>
+    <div class="footer-copy">Self-hosted automation, built by operators.</div>
+  </div>
+</footer>
+
+<script src="assets/booking.js"></script>
+</body>
+</html>

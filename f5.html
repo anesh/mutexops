@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>F5 Automation — Upgrades & Zero Touch Config | MutexOps</title>
+  <meta name="description" content="Hands-free F5 BIG-IP upgrades and self-service VIP/pool/SSL configuration from ServiceNow. No NetOps tickets, no manual touch, full audit trail.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="MutexOps">
+  <link rel="canonical" href="https://mutexops.com/f5.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="F5 Automation — Upgrades & Zero Touch Config | MutexOps">
+  <meta property="og:description" content="Hands-free F5 upgrades. Self-serve F5 configs from ServiceNow. No tickets. No toil.">
+  <meta property="og:url" content="https://mutexops.com/f5.html">
+  <meta property="og:image" content="https://mutexops.com/mutexops_logo.jpg">
+
+  <link rel="icon" type="image/jpeg" href="mutexops_logo.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="mutexops_logo.jpg" alt="MutexOps logo">
+      <div class="nav-brand-text">MUTEX<span>OPS</span></div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="f5.html" class="active">F5 Automation</a>
+      <a href="certificate-lifecycle.html">Certificates</a>
+      <a href="cloud-security.html">Cloud Security</a>
+      <a href="ai-voice-agents.html">AI Voice</a>
+      <a href="workflow-automation.html">Workflows</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">MENU</button>
+    <a href="#demo" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">F5 Automation · Built for Enterprise NetOps</div>
+      </div>
+
+      <h1 id="hero-h1">
+        End the F5 <span class="accent">Bottleneck</span>.<br>
+        <span class="outline">Ship Apps</span> Faster.
+      </h1>
+
+      <p class="hero-sub">
+        Fully automated F5 BIG-IP upgrades with zero-window risk. App teams self-serve virtual servers, pools, and SSL configs directly from ServiceNow — no NetOps ticket, no waiting, no manual touch.
+      </p>
+
+      <div class="hero-trust">
+        <span>Hands-Free Upgrades</span>
+        <span>ServiceNow Native</span>
+        <span>Self-Hosted Ready</span>
+        <span>Full Audit Trail</span>
+      </div>
+    </div>
+
+    <div class="capture-card" id="demo" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book a Discovery Call</div>
+      <h2>30 minutes. Let's talk F5.</h2>
+      <p>Pick a free slot below — we'll learn your F5 footprint, current pain points, and where automation could move the needle.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')" data-interest="f5">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-1">Work Email</label>
+          <input type="email" id="email-1" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-1">Company</label>
+          <input type="text" id="company-1" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">We'll only use your email to schedule the call.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="outcomes">
+  <div class="container">
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">Manual upgrade steps</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">NetOps tickets per VIP</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>~30s</span></div>
+        <div class="outcome-label">AS3 deploy time</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>100%</span></div>
+        <div class="outcome-label">Audit trail coverage</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="problem-strip" id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label">The Cost of Manual</div>
+        <h2>F5 Operations Are Stuck in the Past.</h2>
+      </div>
+      <ul class="pain-list">
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Upgrades take <strong>hours per device</strong> — copy-paste CLI, no automated rollback</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>App teams wait <strong>weeks</strong> for every VIP, pool, or SSL change</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Runbook lives in engineer heads — <strong>no version control, no audit trail</strong></span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Config drift accumulates as changes <strong>bypass automation</strong> straight to CLI</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="solution">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What MutexOps Does</div>
+      <h2>Two Pipelines. One Platform.</h2>
+      <p class="section-desc">
+        Replace the manual F5 runbook and the NetOps ticket queue with two production-grade automation pipelines built on a shared Python core.
+      </p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 01 — UPGRADE PIPELINE</div>
+        <h3>Hands-Free BIG-IP Upgrades</h3>
+        <p class="lead">A Python-driven upgrade engine over iControl REST. Pre-flight to post-check, hands-free, every time.</p>
+        <ul>
+          <li>Pre-flight gate: HA sync, disk, RAM, pool health, cert expiry</li>
+          <li>Encrypted UCS backup before any image transfer</li>
+          <li>Install to alternate volume — running volume untouched</li>
+          <li>Automatic rollback on failed health check or timeout</li>
+          <li>Post-upgrade verification: version, daemons, HA, VIPs</li>
+          <li>Structured JSON logs to Splunk / Elastic</li>
+        </ul>
+      </div>
+
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 02 — ZERO TOUCH CONFIG</div>
+        <h3>Self-Service from ServiceNow</h3>
+        <p class="lead">App teams fill a ServiceNow catalog form. Python translates it to AS3 and deploys directly to BIG-IP.</p>
+        <ul>
+          <li>ServiceNow catalog item — no networking knowledge required</li>
+          <li>Flow Designer approval routing with HMAC-signed webhook</li>
+          <li>Pydantic validation rejects invalid requests pre-deploy</li>
+          <li>Idempotent AS3 declarations — safe to re-run</li>
+          <li>RITM auto-closes with VIP, pool, SSL summary</li>
+          <li>Every declaration committed to Git for full audit history</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--bg2);" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>From Catalog Form to Deployed VIP — In Minutes.</h2>
+      <p class="section-desc">No ticket queues, no manual handoffs, no NetOps in the critical path for routine work.</p>
+    </div>
+
+    <div class="flow-diagram" role="list" aria-label="Zero touch deployment pipeline">
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">App Team Submits</div>
+        <div class="flow-step-sub">ServiceNow catalog — name, port, backends, SSL</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">Approval Routes</div>
+        <div class="flow-step-sub">Flow Designer fires HMAC-signed webhook</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">Python Validates</div>
+        <div class="flow-step-sub">CMDB authz, payload schema, target device</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">AS3 Deploys</div>
+        <div class="flow-step-sub">Idempotent declaration — under 30 seconds</div>
+      </div>
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">05</div>
+        <div class="flow-step-title">RITM Auto-Closes</div>
+        <div class="flow-step-sub">VIP details posted back, Git commit recorded</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="demo2">
+  <div class="cta-banner-inner">
+    <div>
+      <div class="section-label" style="color: var(--accent3); margin-bottom: 16px;">
+        <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
+        Stop Burning NetOps Hours
+      </div>
+      <h2>Tell us about your <span class="accent">F5 fleet</span>.</h2>
+      <p>30-minute discovery call. We'll listen first — your environment, your pain points, where automation could save the most NetOps hours. No pitch deck.</p>
+    </div>
+
+    <div class="capture-card" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book Your Discovery Call</div>
+      <h2>Pick a time below.</h2>
+      <p>One click. We'll follow up with a Teams invite.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')" data-interest="f5">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-2">Work Email</label>
+          <input type="email" id="email-2" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-2">Company</label>
+          <input type="text" id="company-2" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">No SDR sequence. One email, one calendar invite.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Common Questions.</h2>
+    </div>
+
+    <div itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Does the upgrade automation support HA active/standby pairs?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes. The engine upgrades the standby unit first, verifies health, then fails over and upgrades the original active. Pre-flight blocks the upgrade if HA sync state isn't "In Sync" — no partial-state upgrades.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">What happens if an upgrade fails mid-process?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The RollbackManager reboots back to the previously active boot volume — no re-installation needed because we always install to the alternate volume. If volume rollback fails, UCS restore fires as a last resort.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">How do you prevent app teams from deploying to the wrong BIG-IP?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The target BIG-IP field is a CMDB reference — app teams pick from devices their team is pre-authorized for. The webhook re-validates team-to-device authorization before building any AS3 declaration.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Is MutexOps SaaS or self-hosted?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Self-hosted. The Python engine runs in your VPC, talks to your BIG-IPs over your existing management network, and reads BIG-IP credentials from your Vault. No outbound dependency on MutexOps infrastructure.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Which BIG-IP and ServiceNow versions are supported?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The upgrade engine supports BIG-IP across currently supported major versions. The zero touch pipeline requires AS3 on a recent release. ServiceNow Flow Designer is required for the webhook integration; the REST API integration works on any modern ServiceNow release.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="mutexops_logo.jpg" alt="MutexOps logo">
+        <div>
+          <div class="footer-brand-text">MUTEX<span>OPS</span></div>
+          <div class="footer-tagline">// operations without conflict</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="f5.html">F5 Automation</a></li>
+        <li><a href="certificate-lifecycle.html">Certificate Lifecycle</a></li>
+        <li><a href="cloud-security.html">Cloud Security</a></li>
+        <li><a href="ai-voice-agents.html">AI Voice Agents</a></li>
+        <li><a href="workflow-automation.html">Workflow Automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#demo">Book a Discovery Call</a></li>
+        <li><a href="mailto:anesh@mutexops.com">anesh@mutexops.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 MutexOps. All rights reserved.</div>
+    <div class="footer-copy">Self-hosted automation, built by operators.</div>
+  </div>
+</footer>
+
+<script src="assets/booking.js"></script>
+</body>
+</html>

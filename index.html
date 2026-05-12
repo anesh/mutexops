@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>F5 Automation for Enterprise NetOps | MutexOps</title>
-  <meta name="description" content="Eliminate F5 toil. Fully automated BIG-IP upgrades and ServiceNow self-service for app teams — no NetOps tickets, no manual touch.">
+  <title>MutexOps — Enterprise Automation Without the Toil</title>
+  <meta name="description" content="MutexOps builds production-grade automation for enterprise NetOps and SecOps — F5, certificates, cloud security, AI voice agents, and end-to-end workflow automation.">
   <meta name="robots" content="index, follow">
   <meta name="author" content="MutexOps">
   <link rel="canonical" href="https://mutexops.com/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="F5 Automation for Enterprise NetOps | MutexOps">
-  <meta property="og:description" content="Hands-free F5 upgrades. Self-serve F5 configs from ServiceNow. No tickets. No toil.">
+  <meta property="og:title" content="MutexOps — Enterprise Automation Without the Toil">
+  <meta property="og:description" content="Production-grade automation for F5, certificates, cloud security, AI voice agents, and workflows.">
   <meta property="og:url" content="https://mutexops.com/">
   <meta property="og:image" content="https://mutexops.com/mutexops_logo.jpg">
 
@@ -21,794 +21,63 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #f5f2eb;
-      --bg2: #edeae2;
-      --surface: #ffffff;
-      --border: #d8d4c8;
-      --border2: #c8c4b8;
-      --ink: #1a1814;
-      --ink2: #3d3a34;
-      --ink3: #6b6860;
-      --ink4: #9b9890;
-      --accent: #e04510;
-      --accent2: #c8390a;
-      --accent3: #ff5a1f;
-      --accent-bg: rgba(224,69,16,0.08);
-      --accent-border: rgba(224,69,16,0.25);
-      --green: #2d6a4f;
-      --green-bg: rgba(45,106,79,0.08);
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
-      --font-mono: 'DM Mono', monospace;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
-
-    /* Corner bracket motif — matches viewfinder corners on logo */
-    .brackets {
-      position: absolute;
-      inset: 18px;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .brackets::before, .brackets::after,
-    .brackets > span::before, .brackets > span::after {
-      content: '';
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      border: 2px solid var(--accent);
-      opacity: 0.85;
-    }
-    .brackets::before { top: 0; left: 0; border-right: none; border-bottom: none; }
-    .brackets::after  { top: 0; right: 0; border-left: none; border-bottom: none; }
-    .brackets > span::before { bottom: 0; left: 0; border-right: none; border-top: none; }
-    .brackets > span::after  { bottom: 0; right: 0; border-left: none; border-top: none; }
-
-    /* NAV */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(26,24,20,0.96);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(12px);
-    }
-    .nav-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-brand img {
-      width: 36px;
-      height: 36px;
-      border-radius: 6px;
-      display: block;
-    }
-    .nav-brand-text {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      letter-spacing: 0.08em;
-      color: #fff;
-      line-height: 1;
-    }
-    .nav-brand-text span { color: var(--accent3); }
-    .nav-cta {
-      background: var(--accent);
-      color: #fff !important;
-      padding: 9px 20px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      border: 2px solid var(--accent);
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .nav-cta:hover { background: var(--accent3); border-color: var(--accent3); text-decoration: none; }
-
-    /* HERO — dark, anchored on the logo */
-    .hero {
-      background: var(--ink);
-      color: #fff;
-      padding: 96px 0 88px;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 4px solid var(--accent);
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle at 80% 20%, rgba(224,69,16,0.18), transparent 50%),
-                        radial-gradient(circle at 10% 90%, rgba(224,69,16,0.08), transparent 40%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: repeating-linear-gradient(
-        0deg, transparent, transparent 31px,
-        rgba(255,255,255,0.03) 31px, rgba(255,255,255,0.03) 32px
-      );
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 72px;
-      align-items: center;
-    }
-
-    .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .hero-eyebrow-line { width: 32px; height: 2px; background: var(--accent3); }
-    .hero-eyebrow-text {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent3);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 6vw, 5.2rem);
-      line-height: 0.96;
-      letter-spacing: 0.02em;
-      color: #fff;
-      margin-bottom: 22px;
-    }
-    h1 .accent { color: var(--accent3); }
-    h1 .outline {
-      -webkit-text-stroke: 2px #fff;
-      color: transparent;
-    }
-
-    .hero-sub {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.78);
-      max-width: 560px;
-      line-height: 1.7;
-      margin-bottom: 36px;
-    }
-
-    .hero-trust {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px 28px;
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .hero-trust span {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .hero-trust span::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--accent3);
-      display: inline-block;
-    }
-
-    /* Email capture card */
-    .capture-card {
-      position: relative;
-      background: #fff;
-      color: var(--ink);
-      padding: 36px 32px;
-      border: 1px solid var(--border);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
-    }
-    .capture-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .capture-card h2 {
-      font-family: var(--font-display);
-      font-size: 1.7rem;
-      letter-spacing: 0.04em;
-      line-height: 1.05;
-      margin-bottom: 8px;
-      color: var(--ink);
-    }
-    .capture-card p {
-      font-size: 0.85rem;
-      color: var(--ink3);
-      margin-bottom: 22px;
-      line-height: 1.6;
-    }
-    .form-row { margin-bottom: 12px; }
-    .form-row label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.66rem;
-      color: var(--ink3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-    .form-row input {
-      width: 100%;
-      padding: 11px 14px;
-      font-family: var(--font-body);
-      font-size: 0.92rem;
-      border: 1.5px solid var(--border2);
-      background: var(--bg);
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .form-row input:focus {
-      border-color: var(--accent);
-      background: #fff;
-    }
-    .form-error {
-      display: none;
-      font-size: 0.78rem;
-      color: var(--accent2);
-      margin-top: 6px;
-      font-family: var(--font-mono);
-    }
-    .form-error.visible { display: block; }
-    .submit-btn {
-      width: 100%;
-      background: var(--accent);
-      color: #fff;
-      padding: 13px 20px;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      border: 2px solid var(--accent);
-      cursor: pointer;
-      margin-top: 8px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .submit-btn:hover { background: var(--accent3); border-color: var(--accent3); transform: translateY(-1px); }
-    .form-fineprint {
-      font-size: 0.72rem;
-      color: var(--ink4);
-      text-align: center;
-      margin-top: 14px;
-      line-height: 1.5;
-    }
-    .form-success {
-      display: none;
-      padding: 20px;
-      background: var(--green-bg);
-      border: 1px solid rgba(45,106,79,0.25);
-      color: var(--green);
-      font-size: 0.88rem;
-      text-align: center;
-      line-height: 1.6;
-    }
-    .form-success.visible { display: block; }
-    .capture-card.booked .picker,
-    .capture-card.booked form { display: none; }
-
-    /* PICKER — date strip + time chips */
-    .picker { margin: 4px 0 18px; }
-    .picker-tz {
-      font-family: var(--font-mono);
-      font-size: 0.66rem;
-      color: var(--ink4);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .picker-loading, .picker-empty {
-      padding: 32px 0;
-      text-align: center;
-      color: var(--ink4);
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
-    }
-    .date-strip {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-      scrollbar-width: thin;
-    }
-    .date-pill {
-      flex-shrink: 0;
-      min-width: 64px;
-      padding: 8px 10px;
-      border: 1.5px solid var(--border2);
-      background: #fff;
-      cursor: pointer;
-      text-align: center;
-      font-family: var(--font-body);
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .date-pill:hover { border-color: var(--ink3); }
-    .date-pill .day {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--ink4);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .date-pill .num {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: var(--ink);
-      line-height: 1;
-      margin: 3px 0;
-      letter-spacing: 0.02em;
-    }
-    .date-pill .mon {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--ink3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .date-pill.active {
-      border-color: var(--accent);
-      background: var(--accent-bg);
-    }
-    .date-pill.active .num,
-    .date-pill.active .mon { color: var(--accent); }
-
-    .time-chips {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      max-height: 168px;
-      overflow-y: auto;
-      padding-right: 2px;
-    }
-    .time-chip {
-      padding: 9px 6px;
-      border: 1.5px solid var(--border2);
-      background: #fff;
-      cursor: pointer;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--ink2);
-      text-align: center;
-      transition: border-color 0.15s, background 0.15s, color 0.15s;
-    }
-    .time-chip:hover { border-color: var(--ink3); }
-    .time-chip.active {
-      border-color: var(--accent);
-      background: var(--accent-bg);
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    /* OUTCOMES STRIP */
-    .outcomes {
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
-      padding: 48px 0;
-    }
-    .outcomes-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      border-left: 1px solid var(--border);
-    }
-    .outcome {
-      padding: 8px 28px;
-      border-right: 1px solid var(--border);
-    }
-    .outcome-num {
-      font-family: var(--font-display);
-      font-size: 2.4rem;
-      letter-spacing: 0.04em;
-      color: var(--ink);
-      line-height: 1;
-    }
-    .outcome-num span { color: var(--accent); }
-    .outcome-label {
-      font-size: 0.78rem;
-      color: var(--ink3);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 8px;
-      font-family: var(--font-mono);
-    }
-
-    /* SECTIONS */
-    .section { padding: 88px 0; border-bottom: 1px solid var(--border); position: relative; }
-    .section-header {
-      max-width: 720px;
-      margin-bottom: 56px;
-    }
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-label::before {
-      content: '';
-      width: 24px; height: 2px;
-      background: var(--accent);
-    }
-    h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      letter-spacing: 0.03em;
-      line-height: 1.05;
-      color: var(--ink);
-      margin-bottom: 16px;
-    }
-    .section-desc {
-      color: var(--ink3);
-      font-size: 1rem;
-      line-height: 1.75;
-    }
-
-    /* PROBLEM STRIP */
-    .problem-strip {
-      background: var(--ink);
-      color: var(--bg);
-      padding: 72px 0;
-    }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 56px;
-      align-items: start;
-    }
-    .problem-strip .section-label { color: var(--accent3); }
-    .problem-strip .section-label::before { background: var(--accent3); }
-    .problem-strip h2 { color: #fff; }
-    .pain-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-    .pain-list li {
-      padding: 22px 24px 22px 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.92rem;
-      color: rgba(245,242,235,0.78);
-      line-height: 1.55;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-    .pain-list li:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.1); padding-right: 24px; }
-    .pain-list li:nth-child(even) { padding-left: 24px; }
-    .pain-icon {
-      color: var(--accent3);
-      font-family: var(--font-mono);
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    /* SOLUTION CARDS */
-    .solution-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-    .solution-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 40px 36px;
-      position: relative;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .solution-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(26,24,20,0.08);
-    }
-    .solution-card-num {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.14em;
-      margin-bottom: 14px;
-    }
-    .solution-card h3 {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      letter-spacing: 0.03em;
-      line-height: 1.05;
-      margin-bottom: 14px;
-      color: var(--ink);
-    }
-    .solution-card p.lead {
-      color: var(--ink2);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-    .solution-card ul {
-      list-style: none;
-      border-top: 1px solid var(--border);
-    }
-    .solution-card ul li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.88rem;
-      color: var(--ink2);
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      line-height: 1.55;
-    }
-    .solution-card ul li:last-child { border-bottom: none; }
-    .solution-card ul li::before {
-      content: '→';
-      color: var(--accent);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    /* FLOW */
-    .flow-diagram {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-      margin-top: 16px;
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      background: var(--surface);
-    }
-    .flow-step {
-      flex: 1;
-      min-width: 140px;
-      padding: 22px 18px;
-      text-align: center;
-      position: relative;
-      border-right: 1px solid var(--border);
-    }
-    .flow-step:last-child { border-right: none; }
-    .flow-step-num {
-      font-family: var(--font-mono);
-      font-size: 0.66rem;
-      color: var(--ink4);
-      letter-spacing: 0.14em;
-      margin-bottom: 8px;
-    }
-    .flow-step-title {
-      font-family: var(--font-body);
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 6px;
-      line-height: 1.35;
-    }
-    .flow-step-sub {
-      font-size: 0.78rem;
-      color: var(--ink3);
-      line-height: 1.5;
-    }
-    .flow-step.active { background: var(--accent-bg); }
-    .flow-step.active .flow-step-num { color: var(--accent); }
-
-    /* CTA BANNER */
-    .cta-banner {
-      background: var(--ink);
-      color: #fff;
-      padding: 80px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle at 70% 50%, rgba(224,69,16,0.22), transparent 60%);
-    }
-    .cta-banner-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 28px;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 64px;
-      align-items: center;
-    }
-    .cta-banner h2 {
-      color: #fff;
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 16px;
-    }
-    .cta-banner h2 .accent { color: var(--accent3); }
-    .cta-banner p {
-      color: rgba(255,255,255,0.75);
-      font-size: 1rem;
-      max-width: 520px;
-      line-height: 1.7;
-    }
-
-    /* FAQ */
-    .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-q {
-      padding: 22px 0;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--ink);
-      user-select: none;
-      gap: 16px;
-    }
-    .faq-q:hover { color: var(--accent); }
-    .faq-arrow {
-      color: var(--accent);
-      font-size: 1.2rem;
-      transition: transform 0.25s;
-      flex-shrink: 0;
-      font-family: var(--font-mono);
-    }
-    .faq-item.open .faq-arrow { transform: rotate(45deg); }
-    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    .faq-a p {
-      padding-bottom: 24px;
-      color: var(--ink3);
-      font-size: 0.92rem;
-      line-height: 1.8;
-    }
-    .faq-item.open .faq-a { max-height: 600px; }
-
-    /* FOOTER */
-    footer {
-      padding: 56px 0 40px;
-      background: var(--ink);
-      color: var(--bg);
-    }
-    .footer-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-    .footer-brand { display: flex; align-items: center; gap: 14px; }
-    .footer-brand img { width: 44px; height: 44px; border-radius: 6px; }
-    .footer-brand-text {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      letter-spacing: 0.06em;
-      color: #fff;
-      line-height: 1;
-    }
-    .footer-brand-text span { color: var(--accent3); }
-    .footer-tagline {
-      font-size: 0.72rem;
-      color: rgba(245,242,235,0.4);
-      margin-top: 4px;
-      font-family: var(--font-mono);
-      letter-spacing: 0.06em;
-    }
-    .footer-copy { color: rgba(245,242,235,0.3); font-size: 0.72rem; font-family: var(--font-mono); }
-
-    code {
-      font-family: var(--font-mono);
-      font-size: 0.84em;
-      background: rgba(224,69,16,0.08);
-      border: 1px solid rgba(224,69,16,0.18);
-      color: var(--accent2);
-      padding: 1px 6px;
-    }
-
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-      .capture-card { max-width: 480px; }
-      .problem-grid { grid-template-columns: 1fr; gap: 32px; }
-      .pain-list { grid-template-columns: 1fr; }
-      .pain-list li:nth-child(odd) { border-right: none; padding-right: 0; }
-      .pain-list li:nth-child(even) { padding-left: 0; }
-      .solution-grid { grid-template-columns: 1fr; }
-      .outcomes-grid { grid-template-columns: 1fr 1fr; }
-      .cta-banner-inner { grid-template-columns: 1fr; gap: 40px; }
-    }
-    @media (max-width: 560px) {
-      h1 { font-size: 2.6rem; }
-      .outcomes-grid { grid-template-columns: 1fr; }
-      .nav-cta { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-<!-- NAV -->
 <nav aria-label="Main navigation">
   <div class="nav-inner">
-    <div class="nav-brand">
+    <a href="index.html" class="nav-brand">
       <img src="mutexops_logo.jpg" alt="MutexOps logo">
       <div class="nav-brand-text">MUTEX<span>OPS</span></div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="f5.html">F5 Automation</a>
+      <a href="certificate-lifecycle.html">Certificates</a>
+      <a href="cloud-security.html">Cloud Security</a>
+      <a href="ai-voice-agents.html">AI Voice</a>
+      <a href="workflow-automation.html">Workflows</a>
     </div>
-    <a href="#demo" class="nav-cta">Book a Discovery Call</a>
+    <button class="nav-toggle" aria-label="Toggle navigation">MENU</button>
+    <a href="#demo" class="nav-cta">Book a Call</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-h1">
+<section class="hero">
   <div class="container hero-inner">
     <div>
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-line"></div>
-        <div class="hero-eyebrow-text">F5 Automation · Built for Enterprise NetOps</div>
+        <div class="hero-eyebrow-text">Enterprise Automation · Built by Operators</div>
       </div>
 
-      <h1 id="hero-h1">
-        End the F5 <span class="accent">Bottleneck</span>.<br>
-        <span class="outline">Ship Apps</span> Faster.
+      <h1>
+        Operations <span class="accent">Without</span><br>
+        <span class="outline">Conflict.</span>
       </h1>
 
       <p class="hero-sub">
-        Fully automated F5 BIG-IP upgrades with zero-window risk. App teams self-serve virtual servers, pools, and SSL configs directly from ServiceNow — no NetOps ticket, no waiting, no manual touch.
+        MutexOps builds production-grade automation for the parts of the enterprise stack that still run on manual toil — F5, certificates, cloud security policy, ITSM workflows, and the L1 phone queue. Self-hosted. Auditable. Boring on purpose.
       </p>
 
+      <div class="hero-cta-row">
+        <a href="#solutions" class="hero-cta">See Solutions</a>
+        <a href="#demo" class="hero-cta ghost">Book a Discovery Call</a>
+      </div>
+
       <div class="hero-trust">
-        <span>Hands-Free Upgrades</span>
-        <span>ServiceNow Native</span>
         <span>Self-Hosted Ready</span>
+        <span>ServiceNow Native</span>
         <span>Full Audit Trail</span>
+        <span>Python Core</span>
       </div>
     </div>
 
-    <!-- BOOKING CARD -->
     <div class="capture-card" id="demo" data-card>
       <div class="brackets"><span></span></div>
       <div class="capture-eyebrow">// Book a Discovery Call</div>
-      <h2>30 minutes. Let's talk F5.</h2>
-      <p>Pick a free slot below — we'll learn your F5 footprint, current pain points, and where automation could move the needle.</p>
+      <h2>30 minutes. Let's talk.</h2>
+      <p>Tell us which problem hurts most. We'll map it to one of our automation pipelines and where it could move the needle for your team.</p>
 
       <div class="form-success" data-success></div>
 
@@ -816,7 +85,7 @@
         <div class="picker-loading">Loading available times…</div>
       </div>
 
-      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')">
+      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')" data-interest="general">
         <input type="hidden" name="slot" data-slot>
         <div class="form-row">
           <label for="email-1">Work Email</label>
@@ -834,154 +103,121 @@
   </div>
 </section>
 
-<!-- OUTCOMES -->
 <div class="outcomes">
   <div class="container">
     <div class="outcomes-grid">
       <div class="outcome">
-        <div class="outcome-num"><span>0</span></div>
-        <div class="outcome-label">Manual upgrade steps</div>
+        <div class="outcome-num"><span>5</span></div>
+        <div class="outcome-label">Automation pipelines</div>
       </div>
       <div class="outcome">
         <div class="outcome-num"><span>0</span></div>
-        <div class="outcome-label">NetOps tickets per VIP</div>
-      </div>
-      <div class="outcome">
-        <div class="outcome-num"><span>~30s</span></div>
-        <div class="outcome-label">AS3 deploy time</div>
+        <div class="outcome-label">SaaS lock-in</div>
       </div>
       <div class="outcome">
         <div class="outcome-num"><span>100%</span></div>
         <div class="outcome-label">Audit trail coverage</div>
       </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>Self-Hosted</span></div>
+        <div class="outcome-label">Runs in your VPC</div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PROBLEM -->
-<section class="problem-strip" id="problem">
+<section class="section" id="solutions">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Solutions</div>
+      <h2>Five Pipelines. One Philosophy.</h2>
+      <p class="section-desc">
+        Each MutexOps pipeline takes a specific category of enterprise toil and replaces it with a Python-driven, auditable, self-hosted automation. Pick the one that hurts most — they share a common core, so a second is easy.
+      </p>
+    </div>
+
+    <div class="hub-grid">
+      <a href="f5.html" class="hub-card">
+        <div class="brackets"><span></span></div>
+        <div class="hub-card-tag">// 01 · F5 Automation</div>
+        <h3>F5 Upgrades & Zero Touch Config</h3>
+        <p>Hands-free BIG-IP upgrades over iControl REST, and self-service VIP/pool/SSL configuration from a ServiceNow catalog form. No NetOps tickets for routine work.</p>
+        <span class="hub-card-arrow">Explore F5</span>
+      </a>
+
+      <a href="certificate-lifecycle.html" class="hub-card">
+        <div class="brackets"><span></span></div>
+        <div class="hub-card-tag">// 02 · Certificates</div>
+        <h3>Certificate Lifecycle Management</h3>
+        <p>Centralized inventory, automated issuance and renewal, and zero-touch deployment to F5, NGINX, IIS, and Kubernetes. Stop chasing expiries on a spreadsheet.</p>
+        <span class="hub-card-arrow">Explore Certificates</span>
+      </a>
+
+      <a href="cloud-security.html" class="hub-card">
+        <div class="brackets"><span></span></div>
+        <div class="hub-card-tag">// 03 · Cloud Security</div>
+        <h3>Cloud Security & Policy as Code</h3>
+        <p>Continuous compliance for AWS, Azure, and GCP. Policy-as-code guardrails, drift detection, and bounded auto-remediation for the violations you trust to a script.</p>
+        <span class="hub-card-arrow">Explore Cloud Security</span>
+      </a>
+
+      <a href="ai-voice-agents.html" class="hub-card">
+        <div class="brackets"><span></span></div>
+        <div class="hub-card-tag">// 04 · AI Voice</div>
+        <h3>AI Voice Agents for ITSM</h3>
+        <p>Production-grade voice agents that handle the L1 queue — password resets, status updates, scoped ITSM actions — with proper authentication, scope, and audit.</p>
+        <span class="hub-card-arrow">Explore Voice Agents</span>
+      </a>
+
+      <a href="workflow-automation.html" class="hub-card">
+        <div class="brackets"><span></span></div>
+        <div class="hub-card-tag">// 05 · Workflows</div>
+        <h3>End-to-End Workflow Automation</h3>
+        <p>Stitch the systems of record together — ServiceNow, CMDB, IPAM, DNS, Vault, monitoring — into idempotent workflows that finish what tickets used to start.</p>
+        <span class="hub-card-arrow">Explore Workflows</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="problem-strip">
   <div class="container">
     <div class="problem-grid">
       <div>
-        <div class="section-label">The Cost of Manual</div>
-        <h2>F5 Operations Are Stuck in the Past.</h2>
+        <div class="section-label">What We Believe</div>
+        <h2>Toil Compounds. So Should Automation.</h2>
       </div>
       <ul class="pain-list">
         <li>
-          <span class="pain-icon">✗</span>
-          <span>Upgrades take <strong>hours per device</strong> — copy-paste CLI, no automated rollback</span>
+          <span class="pain-icon">→</span>
+          <span><strong>Self-hosted by default.</strong> Your VPC, your credentials, your audit logs. No outbound dependency on us.</span>
         </li>
         <li>
-          <span class="pain-icon">✗</span>
-          <span>App teams wait <strong>weeks</strong> for every VIP, pool, or SSL change</span>
+          <span class="pain-icon">→</span>
+          <span><strong>Idempotent or it ships nothing.</strong> Every action is safe to retry. Every change leaves a Git commit.</span>
         </li>
         <li>
-          <span class="pain-icon">✗</span>
-          <span>Runbook lives in engineer heads — <strong>no version control, no audit trail</strong></span>
+          <span class="pain-icon">→</span>
+          <span><strong>Boring on purpose.</strong> Python, REST, YAML. No exotic stacks your team has to maintain after we leave.</span>
         </li>
         <li>
-          <span class="pain-icon">✗</span>
-          <span>Config drift accumulates as changes <strong>bypass automation</strong> straight to CLI</span>
+          <span class="pain-icon">→</span>
+          <span><strong>Audit trail or it didn't happen.</strong> Structured JSON logs to Splunk or Elastic for every action, every actor, every result.</span>
         </li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- SOLUTION -->
-<section class="section" id="solution">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">What MutexOps Does</div>
-      <h2>Two Pipelines. One Platform.</h2>
-      <p class="section-desc">
-        Replace the manual F5 runbook and the NetOps ticket queue with two production-grade automation pipelines built on a shared Python core.
-      </p>
-    </div>
-
-    <div class="solution-grid">
-      <div class="solution-card">
-        <div class="brackets"><span></span></div>
-        <div class="solution-card-num">// 01 — UPGRADE PIPELINE</div>
-        <h3>Hands-Free BIG-IP Upgrades</h3>
-        <p class="lead">A Python-driven upgrade engine over iControl REST. Pre-flight to post-check, hands-free, every time.</p>
-        <ul>
-          <li>Pre-flight gate: HA sync, disk, RAM, pool health, cert expiry</li>
-          <li>Encrypted UCS backup before any image transfer</li>
-          <li>Install to alternate volume — running volume untouched</li>
-          <li>Automatic rollback on failed health check or timeout</li>
-          <li>Post-upgrade verification: version, daemons, HA, VIPs</li>
-          <li>Structured JSON logs to Splunk / Elastic</li>
-        </ul>
-      </div>
-
-      <div class="solution-card">
-        <div class="brackets"><span></span></div>
-        <div class="solution-card-num">// 02 — ZERO TOUCH CONFIG</div>
-        <h3>Self-Service from ServiceNow</h3>
-        <p class="lead">App teams fill a ServiceNow catalog form. Python translates it to AS3 and deploys directly to BIG-IP.</p>
-        <ul>
-          <li>ServiceNow catalog item — no networking knowledge required</li>
-          <li>Flow Designer approval routing with HMAC-signed webhook</li>
-          <li>Pydantic validation rejects invalid requests pre-deploy</li>
-          <li>Idempotent AS3 declarations — safe to re-run</li>
-          <li>RITM auto-closes with VIP, pool, SSL summary</li>
-          <li>Every declaration committed to Git for full audit history</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section" style="background: var(--bg2);" id="how">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">How It Works</div>
-      <h2>From Catalog Form to Deployed VIP — In Minutes.</h2>
-      <p class="section-desc">No ticket queues, no manual handoffs, no NetOps in the critical path for routine work.</p>
-    </div>
-
-    <div class="flow-diagram" role="list" aria-label="Zero touch deployment pipeline">
-      <div class="flow-step active" role="listitem">
-        <div class="flow-step-num">01</div>
-        <div class="flow-step-title">App Team Submits</div>
-        <div class="flow-step-sub">ServiceNow catalog — name, port, backends, SSL</div>
-      </div>
-      <div class="flow-step" role="listitem">
-        <div class="flow-step-num">02</div>
-        <div class="flow-step-title">Approval Routes</div>
-        <div class="flow-step-sub">Flow Designer fires HMAC-signed webhook</div>
-      </div>
-      <div class="flow-step" role="listitem">
-        <div class="flow-step-num">03</div>
-        <div class="flow-step-title">Python Validates</div>
-        <div class="flow-step-sub">CMDB authz, payload schema, target device</div>
-      </div>
-      <div class="flow-step" role="listitem">
-        <div class="flow-step-num">04</div>
-        <div class="flow-step-title">AS3 Deploys</div>
-        <div class="flow-step-sub">Idempotent declaration — under 30 seconds</div>
-      </div>
-      <div class="flow-step active" role="listitem">
-        <div class="flow-step-num">05</div>
-        <div class="flow-step-title">RITM Auto-Closes</div>
-        <div class="flow-step-sub">VIP details posted back, Git commit recorded</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BANNER -->
 <section class="cta-banner" id="demo2">
   <div class="cta-banner-inner">
     <div>
       <div class="section-label" style="color: var(--accent3); margin-bottom: 16px;">
         <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
-        Stop Burning NetOps Hours
+        Start with the Pain
       </div>
-      <h2>Tell us about your <span class="accent">F5 fleet</span>.</h2>
-      <p>30-minute discovery call. We'll listen first — your environment, your pain points, where automation could save the most NetOps hours. No pitch deck.</p>
+      <h2>Tell us what's <span class="accent">on fire</span>.</h2>
+      <p>30-minute discovery call. We'll listen first — what's burning your team's hours, where automation is most overdue, what your environment actually looks like. No pitch deck.</p>
     </div>
 
     <div class="capture-card" data-card>
@@ -996,7 +232,7 @@
         <div class="picker-loading">Loading available times…</div>
       </div>
 
-      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')">
+      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')" data-interest="general">
         <input type="hidden" name="slot" data-slot>
         <div class="form-row">
           <label for="email-2">Work Email</label>
@@ -1014,292 +250,41 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section" id="faq">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">FAQ</div>
-      <h2>Common Questions.</h2>
-    </div>
-
-    <div itemscope itemtype="https://schema.org/FAQPage">
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-          <span itemprop="name">Does the upgrade automation support HA active/standby pairs?</span>
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Yes. The engine upgrades the standby unit first, verifies health, then fails over and upgrades the original active. Pre-flight blocks the upgrade if HA sync state isn't "In Sync" — no partial-state upgrades.</p>
-        </div>
-      </div>
-
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-          <span itemprop="name">What happens if an upgrade fails mid-process?</span>
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">The RollbackManager reboots back to the previously active boot volume — no re-installation needed because we always install to the alternate volume. If volume rollback fails, UCS restore fires as a last resort.</p>
-        </div>
-      </div>
-
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-          <span itemprop="name">How do you prevent app teams from deploying to the wrong BIG-IP?</span>
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">The target BIG-IP field is a CMDB reference — app teams pick from devices their team is pre-authorized for. The webhook re-validates team-to-device authorization before building any AS3 declaration.</p>
-        </div>
-      </div>
-
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-          <span itemprop="name">Is MutexOps SaaS or self-hosted?</span>
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Self-hosted. The Python engine runs in your VPC, talks to your BIG-IPs over your existing management network, and reads BIG-IP credentials from your Vault. No outbound dependency on MutexOps infrastructure.</p>
-        </div>
-      </div>
-
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
-          <span itemprop="name">Which BIG-IP and ServiceNow versions are supported?</span>
-          <span class="faq-arrow">+</span>
-        </div>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">The upgrade engine supports BIG-IP across currently supported major versions. The zero touch pipeline requires AS3 on a recent release. ServiceNow Flow Designer is required for the webhook integration; the REST API integration works on any modern ServiceNow release.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="mutexops_logo.jpg" alt="MutexOps logo">
-      <div>
-        <div class="footer-brand-text">MUTEX<span>OPS</span></div>
-        <div class="footer-tagline">// operations without conflict</div>
+    <div>
+      <div class="footer-brand">
+        <img src="mutexops_logo.jpg" alt="MutexOps logo">
+        <div>
+          <div class="footer-brand-text">MUTEX<span>OPS</span></div>
+          <div class="footer-tagline">// operations without conflict</div>
+        </div>
       </div>
     </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="f5.html">F5 Automation</a></li>
+        <li><a href="certificate-lifecycle.html">Certificate Lifecycle</a></li>
+        <li><a href="cloud-security.html">Cloud Security</a></li>
+        <li><a href="ai-voice-agents.html">AI Voice Agents</a></li>
+        <li><a href="workflow-automation.html">Workflow Automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#demo">Book a Discovery Call</a></li>
+        <li><a href="mailto:anesh@mutexops.com">anesh@mutexops.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
     <div class="footer-copy">© 2026 MutexOps. All rights reserved.</div>
+    <div class="footer-copy">Self-hosted automation, built by operators.</div>
   </div>
 </footer>
 
-<script>
-  const FREE_DOMAINS = new Set([
-    'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','yahoo.co.in',
-    'hotmail.com','hotmail.co.uk','outlook.com','live.com','msn.com',
-    'icloud.com','me.com','mac.com','aol.com','protonmail.com','proton.me',
-    'gmx.com','gmx.de','mail.com','yandex.com','yandex.ru','zoho.com',
-    'tutanota.com','fastmail.com','hey.com','duck.com','pm.me'
-  ]);
-
-  // TODO: point this at your deployed backend
-  const API_BASE = 'http://localhost:8000';
-
-  let groupedSlots = {};   // { 'YYYY-MM-DD': ['ISO', 'ISO', ...] }
-  let timezone = '';
-
-  function isBusinessEmail(email) {
-    const m = /^[^\s@]+@([^\s@]+\.[^\s@]+)$/.exec(email.trim().toLowerCase());
-    if (!m) return false;
-    return !FREE_DOMAINS.has(m[1]);
-  }
-
-  function fmtDate(isoDate) {
-    const d = new Date(isoDate + 'T00:00:00');
-    return {
-      day: d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase(),
-      num: d.getDate(),
-      mon: d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
-    };
-  }
-
-  function fmtTime(isoDateTime) {
-    const t = new Date(isoDateTime);
-    return t.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-  }
-
-  function fmtFull(isoDateTime) {
-    const t = new Date(isoDateTime);
-    return t.toLocaleString('en-US', {
-      weekday: 'short', month: 'short', day: 'numeric',
-      hour: 'numeric', minute: '2-digit', hour12: true
-    });
-  }
-
-  async function loadAvailability() {
-    const pickers = document.querySelectorAll('[data-picker]');
-
-    try {
-      const r = await fetch(`${API_BASE}/api/availability`);
-      if (!r.ok) throw new Error(`status ${r.status}`);
-      const data = await r.json();
-      timezone = data.timezone;
-
-      groupedSlots = {};
-      for (const iso of data.slots) {
-        const date = iso.slice(0, 10);
-        (groupedSlots[date] = groupedSlots[date] || []).push(iso);
-      }
-
-      pickers.forEach(renderPicker);
-    } catch (e) {
-      console.error('[MutexOps] availability fetch failed', e);
-      pickers.forEach(p => {
-        p.innerHTML = '<div class="picker-empty">Couldn\'t load times. Email <a href="mailto:hello@mutexops.com">hello@mutexops.com</a> and we\'ll book you in.</div>';
-      });
-    }
-  }
-
-  function renderPicker(pickerEl) {
-    const dates = Object.keys(groupedSlots).sort();
-    if (dates.length === 0) {
-      pickerEl.innerHTML = '<div class="picker-empty">No availability in the next 14 days. Please email hello@mutexops.com.</div>';
-      return;
-    }
-
-    const tzPretty = timezone.replace(/_/g, ' ');
-    pickerEl.innerHTML = `
-      <div class="picker-tz">All times in ${tzPretty}</div>
-      <div class="date-strip" data-role="dates">
-        ${dates.map((d, i) => {
-          const f = fmtDate(d);
-          return `<button type="button" class="date-pill${i === 0 ? ' active' : ''}" data-date="${d}">
-            <div class="day">${f.day}</div>
-            <div class="num">${f.num}</div>
-            <div class="mon">${f.mon}</div>
-          </button>`;
-        }).join('')}
-      </div>
-      <div class="time-chips" data-role="times"></div>
-    `;
-
-    const timesEl = pickerEl.querySelector('[data-role="times"]');
-    const renderTimes = (date) => {
-      timesEl.innerHTML = groupedSlots[date].map(iso =>
-        `<button type="button" class="time-chip" data-slot="${iso}">${fmtTime(iso)}</button>`
-      ).join('');
-    };
-
-    pickerEl.querySelectorAll('.date-pill').forEach(btn => {
-      btn.addEventListener('click', () => {
-        pickerEl.querySelectorAll('.date-pill').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderTimes(btn.dataset.date);
-        // clear time selection on date change
-        const slotInput = pickerEl.closest('[data-card]').querySelector('[data-slot]');
-        if (slotInput) slotInput.value = '';
-      });
-    });
-
-    timesEl.addEventListener('click', (e) => {
-      const chip = e.target.closest('.time-chip');
-      if (!chip) return;
-      timesEl.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      const card = pickerEl.closest('[data-card]');
-      card.querySelector('[data-slot]').value = chip.dataset.slot;
-      const errorEl = card.querySelector('[data-error]');
-      if (errorEl) errorEl.classList.remove('visible');
-    });
-
-    renderTimes(dates[0]);
-  }
-
-  async function submitDemo(event, formId) {
-    event.preventDefault();
-    const form = document.getElementById(formId);
-    const card = form.closest('[data-card]');
-    const emailInput = form.querySelector('input[type="email"]');
-    const companyInput = form.querySelector('input[name="company"]');
-    const slotInput = form.querySelector('[data-slot]');
-    const errorEl = card.querySelector('[data-error]');
-    const successEl = card.querySelector('[data-success]');
-    const submitBtn = form.querySelector('.submit-btn');
-
-    const email = emailInput.value.trim();
-    const company = companyInput.value.trim();
-    const slot = slotInput ? slotInput.value : '';
-
-    const showError = (msg) => {
-      errorEl.textContent = msg;
-      errorEl.classList.add('visible');
-    };
-    errorEl.classList.remove('visible');
-    errorEl.textContent = '';
-
-    if (!isBusinessEmail(email)) {
-      showError("Please use your business email — free providers aren't supported.");
-      emailInput.focus();
-      return false;
-    }
-    if (!company) {
-      showError('Company is required.');
-      companyInput.focus();
-      return false;
-    }
-    if (!slot) {
-      showError('Please pick a date and time above.');
-      return false;
-    }
-
-    const origLabel = submitBtn.textContent;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Booking…';
-
-    try {
-      const r = await fetch(`${API_BASE}/api/leads`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, company, slot })
-      });
-      const result = await r.json().catch(() => ({}));
-      if (!r.ok) {
-        throw new Error(result.detail || `Booking failed (${r.status})`);
-      }
-
-      successEl.innerHTML = `
-        <div style="font-weight:600; margin-bottom:8px;">✓ Request received.</div>
-        <div>We'll send a Teams invite to <strong>${email}</strong> shortly.</div>
-        <div style="margin-top:8px; font-family: var(--font-mono); font-size: 0.78rem;">${fmtFull(result.booked_for)} · ${result.timezone.replace(/_/g, ' ')}</div>
-      `;
-      successEl.classList.add('visible');
-      card.classList.add('booked');
-    } catch (e) {
-      showError(e.message || 'Booking failed. Please try again.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = origLabel;
-    }
-    return false;
-  }
-
-  document.addEventListener('DOMContentLoaded', loadAvailability);
-
-  function toggleFaq(el) {
-    const item = el.parentElement;
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(i => {
-      i.classList.remove('open');
-      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-    });
-    if (!wasOpen) {
-      item.classList.add('open');
-      el.setAttribute('aria-expanded', 'true');
-    }
-  }
-
-  document.querySelectorAll('.faq-q').forEach(q => {
-    q.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFaq(q); }
-    });
-  });
-</script>
-
+<script src="assets/booking.js"></script>
 </body>
 </html>

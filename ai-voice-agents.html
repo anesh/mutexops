@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI Voice Agents for ITSM | MutexOps</title>
+  <meta name="description" content="Production-grade voice agents that handle the L1 queue — password resets, status updates, scoped ITSM actions — with proper authentication, scope, and audit.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="MutexOps">
+  <link rel="canonical" href="https://mutexops.com/ai-voice-agents.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Voice Agents for ITSM | MutexOps">
+  <meta property="og:description" content="Voice agents that authenticate, triage, and act — for the L1 queue you can't keep staffing.">
+  <meta property="og:url" content="https://mutexops.com/ai-voice-agents.html">
+  <meta property="og:image" content="https://mutexops.com/mutexops_logo.jpg">
+
+  <link rel="icon" type="image/jpeg" href="mutexops_logo.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="mutexops_logo.jpg" alt="MutexOps logo">
+      <div class="nav-brand-text">MUTEX<span>OPS</span></div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="f5.html">F5 Automation</a>
+      <a href="certificate-lifecycle.html">Certificates</a>
+      <a href="cloud-security.html">Cloud Security</a>
+      <a href="ai-voice-agents.html" class="active">AI Voice</a>
+      <a href="workflow-automation.html">Workflows</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">MENU</button>
+    <a href="#demo" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">AI Voice Agents · For Real ITSM</div>
+      </div>
+
+      <h1>
+        Voice Agents That <span class="accent">Authenticate</span>,<br>
+        <span class="outline">Triage, and Act.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Production-grade voice agents wired into ServiceNow, Active Directory, and your existing automations. They authenticate callers, triage the request, execute scoped actions — and hand off to a human the moment they shouldn't.
+      </p>
+
+      <div class="hero-trust">
+        <span>ServiceNow Native</span>
+        <span>Scoped Actions Only</span>
+        <span>Verified Callers</span>
+        <span>Full Transcript Audit</span>
+      </div>
+    </div>
+
+    <div class="capture-card" id="demo" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book a Discovery Call</div>
+      <h2>30 minutes. Let's talk L1.</h2>
+      <p>Pick a free slot — we'll learn your call volume, top ticket types, and where a voice agent could deflect the most repeatable work.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')" data-interest="ai-voice">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-1">Work Email</label>
+          <input type="email" id="email-1" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-1">Company</label>
+          <input type="text" id="company-1" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">We'll only use your email to schedule the call.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="outcomes">
+  <div class="container">
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="outcome-num"><span>24/7</span></div>
+        <div class="outcome-label">L1 coverage</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>~40%</span></div>
+        <div class="outcome-label">Typical deflection</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">Unverified actions</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>100%</span></div>
+        <div class="outcome-label">Transcripts retained</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="problem-strip">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label">Why L1 Burns Out</div>
+        <h2>Humans on a Phone Queue Isn't a Strategy.</h2>
+      </div>
+      <ul class="pain-list">
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>The same five ticket types make up <strong>most of L1 call volume</strong></span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>After-hours coverage is <strong>a rota nobody wants</strong>, or doesn't exist at all</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Chatbots solved tier-0, but the phone is still <strong>a human</strong> reading a runbook</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Vendor voice products want <strong>privileged keys</strong> and store transcripts off-prem</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="solution">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What MutexOps Does</div>
+      <h2>One Agent. Many Skills. Tight Scope.</h2>
+      <p class="section-desc">
+        A voice agent stack designed for enterprise ITSM, not consumer support. Each skill is a narrowly-scoped Python tool the agent can call — with authentication and authorization gates that fire before any action runs.
+      </p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 01 — VOICE FRONT</div>
+        <h3>Real-Time Voice, Production Latency.</h3>
+        <p class="lead">SIP / Teams / Zoom Phone integration with streaming STT, an LLM brain, and TTS that doesn't sound like a robot from 2014.</p>
+        <ul>
+          <li>SIP / Teams / Zoom Phone / Twilio inbound</li>
+          <li>Streaming STT — interruption handling, barge-in</li>
+          <li>LLM orchestration with tool calling for skills</li>
+          <li>Natural TTS with company-specific pronunciation</li>
+          <li>Sub-second action latency for common skills</li>
+          <li>Graceful human handoff with conversation context</li>
+        </ul>
+      </div>
+
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 02 — SCOPED SKILLS</div>
+        <h3>Actions With a Leash.</h3>
+        <p class="lead">Skills are Python tools registered with the agent. Each one runs only after the caller is verified and the action is in-scope.</p>
+        <ul>
+          <li>Caller verification: SSO push, OTP, voice biometric</li>
+          <li>Password reset (Entra ID / AD) for verified users</li>
+          <li>Incident creation, status lookup, ETA from ServiceNow</li>
+          <li>Approval routing for scoped requests</li>
+          <li>Per-skill RBAC and rate limits</li>
+          <li>Full transcript + action log to your SIEM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--bg2);" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Ring → Verify → Triage → Act → Audit.</h2>
+      <p class="section-desc">The agent only takes actions inside a verified, in-scope envelope. Everything else escalates.</p>
+    </div>
+
+    <div class="flow-diagram" role="list" aria-label="Voice agent pipeline">
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">Inbound Call</div>
+        <div class="flow-step-sub">SIP / Teams / Zoom Phone</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">Verify Caller</div>
+        <div class="flow-step-sub">SSO push or OTP — no voice-only auth</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">Triage Intent</div>
+        <div class="flow-step-sub">Map to a registered skill or escalate</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">Execute Skill</div>
+        <div class="flow-step-sub">Scoped Python tool — RBAC enforced</div>
+      </div>
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">05</div>
+        <div class="flow-step-title">Audit</div>
+        <div class="flow-step-sub">Transcript + action log to SIEM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="demo2">
+  <div class="cta-banner-inner">
+    <div>
+      <div class="section-label" style="color: var(--accent3); margin-bottom: 16px;">
+        <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
+        Deflect the Top Five
+      </div>
+      <h2>Which five tickets eat <span class="accent">most of L1</span>?</h2>
+      <p>30-minute discovery call. We'll look at your top call drivers, your existing ITSM integrations, and which would be the highest-leverage skills to ship first.</p>
+    </div>
+
+    <div class="capture-card" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book Your Discovery Call</div>
+      <h2>Pick a time below.</h2>
+      <p>One click. We'll follow up with a Teams invite.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')" data-interest="ai-voice">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-2">Work Email</label>
+          <input type="email" id="email-2" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-2">Company</label>
+          <input type="text" id="company-2" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">No SDR sequence. One email, one calendar invite.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Common Questions.</h2>
+    </div>
+
+    <div itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">How do you stop the agent from doing something it shouldn't?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Hard constraints, not soft prompts. The LLM can only invoke registered skills, each skill enforces RBAC at the API layer before doing anything, and high-risk actions require a second factor (e.g. an SSO push) regardless of what the LLM proposes. If a request doesn't map cleanly to a skill, the agent says so and escalates to a human.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Which LLM and voice models do you use?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Pluggable. We have reference configs for Claude (via Bedrock or Anthropic API), OpenAI, and Azure OpenAI for the orchestration LLM, plus the corresponding voice models. For regulated environments we support Bedrock and Azure OpenAI exclusively so calls never leave your cloud boundary.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Can callers be authenticated without a separate device?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">For low-risk skills (status lookups, ticket info), yes — via voiceprint or knowledge-based questions. For anything that mutates state (password reset, MFA reset, ticket creation as another user), we require an SSO push or OTP on a registered device. We don't unlock accounts on the basis of voice alone.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">How does this integrate with our existing IVR?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Two common patterns. Front-end: the agent answers first, deflects what it can, transfers to your existing queue otherwise. Back-end: your IVR routes specific menu options to the agent SIP endpoint. Both are supported; the right one depends on whether you want to deflect by intent or by menu.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Where do transcripts and recordings live?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">In your storage. Transcripts and audio land in your S3 / Azure Blob / GCS bucket with your retention and KMS keys. Structured action logs go to your SIEM. MutexOps doesn't retain call media on our side.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="mutexops_logo.jpg" alt="MutexOps logo">
+        <div>
+          <div class="footer-brand-text">MUTEX<span>OPS</span></div>
+          <div class="footer-tagline">// operations without conflict</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="f5.html">F5 Automation</a></li>
+        <li><a href="certificate-lifecycle.html">Certificate Lifecycle</a></li>
+        <li><a href="cloud-security.html">Cloud Security</a></li>
+        <li><a href="ai-voice-agents.html">AI Voice Agents</a></li>
+        <li><a href="workflow-automation.html">Workflow Automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#demo">Book a Discovery Call</a></li>
+        <li><a href="mailto:anesh@mutexops.com">anesh@mutexops.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 MutexOps. All rights reserved.</div>
+    <div class="footer-copy">Self-hosted automation, built by operators.</div>
+  </div>
+</footer>
+
+<script src="assets/booking.js"></script>
+</body>
+</html>

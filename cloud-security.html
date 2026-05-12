@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cloud Security & Policy as Code | MutexOps</title>
+  <meta name="description" content="Continuous compliance for AWS, Azure, and GCP. Policy-as-code guardrails, drift detection, and bounded auto-remediation. Self-hosted, no SaaS lock-in.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="MutexOps">
+  <link rel="canonical" href="https://mutexops.com/cloud-security.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cloud Security & Policy as Code | MutexOps">
+  <meta property="og:description" content="Continuous compliance, drift detection, and bounded auto-remediation across AWS, Azure, GCP.">
+  <meta property="og:url" content="https://mutexops.com/cloud-security.html">
+  <meta property="og:image" content="https://mutexops.com/mutexops_logo.jpg">
+
+  <link rel="icon" type="image/jpeg" href="mutexops_logo.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="mutexops_logo.jpg" alt="MutexOps logo">
+      <div class="nav-brand-text">MUTEX<span>OPS</span></div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="f5.html">F5 Automation</a>
+      <a href="certificate-lifecycle.html">Certificates</a>
+      <a href="cloud-security.html" class="active">Cloud Security</a>
+      <a href="ai-voice-agents.html">AI Voice</a>
+      <a href="workflow-automation.html">Workflows</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">MENU</button>
+    <a href="#demo" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">Cloud Security · Policy You Can Actually Enforce</div>
+      </div>
+
+      <h1>
+        Guardrails That <span class="accent">Hold</span>.<br>
+        <span class="outline">Drift That Doesn't.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Continuous compliance for AWS, Azure, and GCP. Policy-as-code, drift detection, and bounded auto-remediation for the violations you trust to a script — with the rest routed to humans, fast.
+      </p>
+
+      <div class="hero-trust">
+        <span>AWS · Azure · GCP</span>
+        <span>OPA / Rego Native</span>
+        <span>Bounded Remediation</span>
+        <span>Audit-Friendly</span>
+      </div>
+    </div>
+
+    <div class="capture-card" id="demo" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book a Discovery Call</div>
+      <h2>30 minutes. Let's talk policy.</h2>
+      <p>Pick a free slot — we'll learn your cloud footprint, current control gaps, and where automated enforcement could close the biggest exposure.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')" data-interest="cloud-security">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-1">Work Email</label>
+          <input type="email" id="email-1" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-1">Company</label>
+          <input type="text" id="company-1" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">We'll only use your email to schedule the call.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="outcomes">
+  <div class="container">
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="outcome-num"><span>3</span></div>
+        <div class="outcome-label">Clouds, one control plane</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>~5m</span></div>
+        <div class="outcome-label">Drift to detection</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>Policy</span></div>
+        <div class="outcome-label">As versioned code</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">SaaS data egress</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="problem-strip">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label">Why Posture Tools Fall Short</div>
+        <h2>Findings Aren't Fixes.</h2>
+      </div>
+      <ul class="pain-list">
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>CSPM dashboards generate <strong>10,000 findings</strong>, fix the top ten, ignore the rest</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Policy lives in PDFs — drift between <strong>written and enforced</strong> is invisible</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Remediation is manual — ticket → engineer → cloud console → mistakes</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Vendor SaaS posture tools ship your cloud metadata <strong>off-premise</strong> by design</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="solution">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What MutexOps Does</div>
+      <h2>Write Policy. Enforce It. Prove It.</h2>
+      <p class="section-desc">
+        Policy-as-code guardrails sitting in front of your cloud APIs, paired with continuous drift detection and bounded auto-remediation for the rules you've decided are safe to enforce automatically.
+      </p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 01 — POLICY AS CODE</div>
+        <h3>Guardrails You Can Read in Git.</h3>
+        <p class="lead">OPA/Rego policies versioned, reviewed, and enforced. Same policy in pre-deploy CI gate and post-deploy drift scan.</p>
+        <ul>
+          <li>Rego policy library for CIS, NIST 800-53, internal standards</li>
+          <li>CI gate for Terraform / Pulumi / CloudFormation</li>
+          <li>Post-deploy continuous scan against the same policies</li>
+          <li>SCP / Azure Policy / GCP Organization Policy generation</li>
+          <li>Exception workflow with expiry — no permanent waivers</li>
+          <li>Every policy change is a PR with a reviewer</li>
+        </ul>
+      </div>
+
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 02 — DRIFT & REMEDIATION</div>
+        <h3>Detect Drift. Fix the Easy Ones.</h3>
+        <p class="lead">Continuous cloud inventory diff against policy. Bounded auto-remediation for the violations you've signed off on.</p>
+        <ul>
+          <li>Read-only inventory across AWS / Azure / GCP accounts</li>
+          <li>Diff against policy — only real violations surface</li>
+          <li>Allowlisted remediations (e.g. public S3, open SG) auto-fix</li>
+          <li>Rate-limited, blast-radius capped, reversible</li>
+          <li>Everything else opens a ServiceNow ticket with the fix</li>
+          <li>Full action log to your SIEM, no MutexOps cloud touch</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--bg2);" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Policy In, Compliance Out.</h2>
+      <p class="section-desc">Same policy enforced at deploy time and run time, so the gap between written and actual stays at zero.</p>
+    </div>
+
+    <div class="flow-diagram" role="list" aria-label="Cloud security pipeline">
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">Policy in Git</div>
+        <div class="flow-step-sub">Rego, reviewed via PR</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">CI Gate</div>
+        <div class="flow-step-sub">Terraform plan evaluated pre-merge</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">Scan</div>
+        <div class="flow-step-sub">Continuous read of cloud state</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">Triage</div>
+        <div class="flow-step-sub">Allowlisted → auto-fix. Else → ticket</div>
+      </div>
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">05</div>
+        <div class="flow-step-title">Audit</div>
+        <div class="flow-step-sub">Every action logged to your SIEM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="demo2">
+  <div class="cta-banner-inner">
+    <div>
+      <div class="section-label" style="color: var(--accent3); margin-bottom: 16px;">
+        <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
+        Close the Drift Gap
+      </div>
+      <h2>How big is the gap between your <span class="accent">written policy</span> and reality?</h2>
+      <p>30-minute discovery call. We'll talk through your cloud accounts, your existing posture tools, and where bounded automation could shrink the gap between policy and what's actually deployed.</p>
+    </div>
+
+    <div class="capture-card" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book Your Discovery Call</div>
+      <h2>Pick a time below.</h2>
+      <p>One click. We'll follow up with a Teams invite.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')" data-interest="cloud-security">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-2">Work Email</label>
+          <input type="email" id="email-2" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-2">Company</label>
+          <input type="text" id="company-2" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">No SDR sequence. One email, one calendar invite.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Common Questions.</h2>
+    </div>
+
+    <div itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Is this a CSPM replacement?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">It overlaps. The difference is philosophy: MutexOps treats policy as code you own, not findings you triage. We focus on a smaller set of high-confidence rules that we'll actually enforce — including auto-remediating the ones you've decided are safe — rather than producing thousands of low-signal findings.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">What gets auto-remediated by default?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Nothing, by default. Every auto-remediation rule is explicitly opted in. Common starting points: tagging missing required tags, closing accidentally public S3 buckets, removing 0.0.0.0/0 ingress on management ports. Each rule has a blast radius limit (max N resources/hour) and is fully reversible.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">How do you authenticate to our cloud accounts?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Native cloud identity — IAM Roles (assume-role), Azure Managed Identity / workload identity federation, GCP Workload Identity. No long-lived static credentials. Read scope by default; write scope only on the specific actions enabled for auto-remediation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Does any cloud data leave our environment?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No. The control plane runs in your VPC. Cloud inventory, findings, and remediation actions stay inside your network and your SIEM. There's no outbound dependency on MutexOps infrastructure.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Can we bring our own Rego?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes — the policy bundle is just a Git repo of Rego modules. Use ours as a starting point, override what you need, and add your own internal-standard rules alongside. CI runs <code>opa test</code> on every PR.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="mutexops_logo.jpg" alt="MutexOps logo">
+        <div>
+          <div class="footer-brand-text">MUTEX<span>OPS</span></div>
+          <div class="footer-tagline">// operations without conflict</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="f5.html">F5 Automation</a></li>
+        <li><a href="certificate-lifecycle.html">Certificate Lifecycle</a></li>
+        <li><a href="cloud-security.html">Cloud Security</a></li>
+        <li><a href="ai-voice-agents.html">AI Voice Agents</a></li>
+        <li><a href="workflow-automation.html">Workflow Automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#demo">Book a Discovery Call</a></li>
+        <li><a href="mailto:anesh@mutexops.com">anesh@mutexops.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 MutexOps. All rights reserved.</div>
+    <div class="footer-copy">Self-hosted automation, built by operators.</div>
+  </div>
+</footer>
+
+<script src="assets/booking.js"></script>
+</body>
+</html>

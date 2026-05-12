@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Workflow Automation for Enterprise IT | MutexOps</title>
+  <meta name="description" content="Stitch ServiceNow, CMDB, IPAM, DNS, Vault, and monitoring into idempotent workflows that finish what tickets used to start. Python-driven, audit-ready.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="MutexOps">
+  <link rel="canonical" href="https://mutexops.com/workflow-automation.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Workflow Automation for Enterprise IT | MutexOps">
+  <meta property="og:description" content="Idempotent end-to-end workflows across ServiceNow, CMDB, IPAM, DNS, Vault, and monitoring.">
+  <meta property="og:url" content="https://mutexops.com/workflow-automation.html">
+  <meta property="og:image" content="https://mutexops.com/mutexops_logo.jpg">
+
+  <link rel="icon" type="image/jpeg" href="mutexops_logo.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="mutexops_logo.jpg" alt="MutexOps logo">
+      <div class="nav-brand-text">MUTEX<span>OPS</span></div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="f5.html">F5 Automation</a>
+      <a href="certificate-lifecycle.html">Certificates</a>
+      <a href="cloud-security.html">Cloud Security</a>
+      <a href="ai-voice-agents.html">AI Voice</a>
+      <a href="workflow-automation.html" class="active">Workflows</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">MENU</button>
+    <a href="#demo" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <div class="hero-eyebrow-text">Workflow Automation · Across the Whole Stack</div>
+      </div>
+
+      <h1>
+        Finish What <span class="accent">Tickets</span><br>
+        <span class="outline">Used to Start.</span>
+      </h1>
+
+      <p class="hero-sub">
+        End-to-end workflow automation that stitches the systems of record together — ServiceNow, CMDB, IPAM, DNS, Vault, monitoring, the firewall, the load balancer — into idempotent pipelines that actually complete the request.
+      </p>
+
+      <div class="hero-trust">
+        <span>ServiceNow Native</span>
+        <span>Idempotent by Design</span>
+        <span>Self-Hosted Runner</span>
+        <span>Git-Backed</span>
+      </div>
+    </div>
+
+    <div class="capture-card" id="demo" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book a Discovery Call</div>
+      <h2>30 minutes. Let's talk workflows.</h2>
+      <p>Pick a free slot — we'll learn your highest-toil request types and where end-to-end automation could collapse the ticket chain.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form" novalidate onsubmit="return submitDemo(event, 'demo-form')" data-interest="workflow">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-1">Work Email</label>
+          <input type="email" id="email-1" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-1">Company</label>
+          <input type="text" id="company-1" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">We'll only use your email to schedule the call.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="outcomes">
+  <div class="container">
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="outcome-num"><span>1</span></div>
+        <div class="outcome-label">Request, zero handoffs</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>0</span></div>
+        <div class="outcome-label">Half-finished tickets</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>Git</span></div>
+        <div class="outcome-label">Source of truth</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num"><span>100%</span></div>
+        <div class="outcome-label">Idempotent runs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="problem-strip">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label">Why Tickets Stall</div>
+        <h2>The Last Mile Is Always Manual.</h2>
+      </div>
+      <ul class="pain-list">
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>A "simple" request touches <strong>five systems</strong> and three different teams</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>Flow Designer can route approvals — it <strong>can't reliably execute</strong> across all your systems</span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>RPA scripts work until a form changes, then <strong>fail silently for a week</strong></span>
+        </li>
+        <li>
+          <span class="pain-icon">✗</span>
+          <span>The last step — CMDB update, DNS record, monitoring add — is always <strong>"I'll get to it"</strong></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="solution">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What MutexOps Does</div>
+      <h2>One Python Runner. Every System.</h2>
+      <p class="section-desc">
+        ServiceNow Flow Designer handles routing and approvals. A self-hosted Python runner handles the actual work — idempotent calls into every system the request touches, end to end, with a single audit trail.
+      </p>
+    </div>
+
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 01 — INTEGRATION CORE</div>
+        <h3>The Connectors That Matter.</h3>
+        <p class="lead">Production-grade Python adapters for the systems your workflows actually touch. Auth, retry, idempotency built in.</p>
+        <ul>
+          <li>ServiceNow Table + Flow Designer (HMAC webhook)</li>
+          <li>CMDB read/write with relationship awareness</li>
+          <li>Infoblox / BlueCat / phpIPAM for IP and DNS</li>
+          <li>HashiCorp Vault for secrets, dynamic creds</li>
+          <li>Firewall (Palo Alto, FortiGate, Check Point) policy</li>
+          <li>Monitoring (Datadog, Dynatrace, Splunk) registration</li>
+        </ul>
+      </div>
+
+      <div class="solution-card">
+        <div class="brackets"><span></span></div>
+        <div class="solution-card-num">// 02 — WORKFLOW RUNNER</div>
+        <h3>Idempotent. Resumable. Auditable.</h3>
+        <p class="lead">Workflows defined as Python — typed inputs, declarative steps, automatic state. Safe to retry, easy to extend.</p>
+        <ul>
+          <li>Pydantic-typed inputs from ServiceNow catalog</li>
+          <li>Steps are idempotent — re-run after partial failure</li>
+          <li>State persisted per request — resumable mid-pipeline</li>
+          <li>Per-step audit log written before and after the call</li>
+          <li>Failure modes route back to the originating RITM</li>
+          <li>Every workflow definition lives in Git, reviewed via PR</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--bg2);" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>From Request to Done — Without a Handoff.</h2>
+      <p class="section-desc">Approvals stay in ServiceNow. Execution moves to a runner that knows how to talk to everything downstream.</p>
+    </div>
+
+    <div class="flow-diagram" role="list" aria-label="Workflow automation pipeline">
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">Request</div>
+        <div class="flow-step-sub">ServiceNow catalog item</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">Approve</div>
+        <div class="flow-step-sub">Flow Designer routing</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">Dispatch</div>
+        <div class="flow-step-sub">HMAC webhook → workflow runner</div>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">Execute</div>
+        <div class="flow-step-sub">Idempotent steps across N systems</div>
+      </div>
+      <div class="flow-step active" role="listitem">
+        <div class="flow-step-num">05</div>
+        <div class="flow-step-title">Close Out</div>
+        <div class="flow-step-sub">RITM auto-closes with full summary</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="demo2">
+  <div class="cta-banner-inner">
+    <div>
+      <div class="section-label" style="color: var(--accent3); margin-bottom: 16px;">
+        <span style="background: var(--accent3); width: 24px; height: 2px;"></span>
+        Collapse the Ticket Chain
+      </div>
+      <h2>Which request type spans <span class="accent">the most teams</span>?</h2>
+      <p>30-minute discovery call. Bring us your messiest request — onboarding, app provisioning, network change, decom. We'll sketch how it would look as a single idempotent workflow.</p>
+    </div>
+
+    <div class="capture-card" data-card>
+      <div class="brackets"><span></span></div>
+      <div class="capture-eyebrow">// Book Your Discovery Call</div>
+      <h2>Pick a time below.</h2>
+      <p>One click. We'll follow up with a Teams invite.</p>
+
+      <div class="form-success" data-success></div>
+
+      <div class="picker" data-picker>
+        <div class="picker-loading">Loading available times…</div>
+      </div>
+
+      <form id="demo-form-2" novalidate onsubmit="return submitDemo(event, 'demo-form-2')" data-interest="workflow">
+        <input type="hidden" name="slot" data-slot>
+        <div class="form-row">
+          <label for="email-2">Work Email</label>
+          <input type="email" id="email-2" name="email" placeholder="you@company.com" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="company-2">Company</label>
+          <input type="text" id="company-2" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="form-error" data-error></div>
+        <button type="submit" class="submit-btn">Book My Call →</button>
+        <div class="form-fineprint">No SDR sequence. One email, one calendar invite.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Common Questions.</h2>
+    </div>
+
+    <div itemscope itemtype="https://schema.org/FAQPage">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Why not just do this in ServiceNow Flow Designer?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Flow Designer is excellent for approval routing and ServiceNow-native steps. It's not great at idempotent retries across heterogeneous external systems, complex state, or testing in CI. We keep the routing in Flow Designer and move the execution to a Python runner that lives in Git, has unit tests, and can replay safely.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">How do you handle a partial failure mid-workflow?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Each step is idempotent and writes state before exit. A failure pauses the workflow at the last successful step. Re-dispatching the same request ID resumes from there — no duplicate work, no half-applied changes. For steps that can't be made idempotent (rare), we use compensating actions instead.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Is this iPaaS? n8n? Tines? Workato?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">It overlaps with iPaaS philosophically but the format is different: workflows are Python in Git, not a graphical canvas in a vendor UI. That trades a little visual approachability for far better testability, code review, and the ability to do non-trivial logic. Right call if your workflows are non-trivial and your team can read Python.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">What's a good first workflow to automate?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Usually app onboarding or new-server provisioning, because they touch the most systems and have the clearest before/after metrics. Other common starters: firewall rule requests, DNS record changes, decom workflows, AD group provisioning. We'll help you pick the one with the highest leverage during the discovery call.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false">
+          <span itemprop="name">Can we extend the workflows ourselves?</span>
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes — that's the point. Workflows live in your Git repo. Your team writes new ones using the same connector library and step framework. We're around for new connectors, hard integrations, and architectural reviews, but day-to-day workflow authoring is yours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="mutexops_logo.jpg" alt="MutexOps logo">
+        <div>
+          <div class="footer-brand-text">MUTEX<span>OPS</span></div>
+          <div class="footer-tagline">// operations without conflict</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="f5.html">F5 Automation</a></li>
+        <li><a href="certificate-lifecycle.html">Certificate Lifecycle</a></li>
+        <li><a href="cloud-security.html">Cloud Security</a></li>
+        <li><a href="ai-voice-agents.html">AI Voice Agents</a></li>
+        <li><a href="workflow-automation.html">Workflow Automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#demo">Book a Discovery Call</a></li>
+        <li><a href="mailto:anesh@mutexops.com">anesh@mutexops.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 MutexOps. All rights reserved.</div>
+    <div class="footer-copy">Self-hosted automation, built by operators.</div>
+  </div>
+</footer>
+
+<script src="assets/booking.js"></script>
+</body>
+</html>
